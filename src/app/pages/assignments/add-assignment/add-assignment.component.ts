@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Assignment } from '../assignment.model';
-import { AssignmentsService } from 'src/app/shared/assignments.service';
+import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Router } from '@angular/router';
 
 @Component({

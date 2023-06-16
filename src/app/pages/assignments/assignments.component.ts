@@ -1,8 +1,9 @@
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { Assignment } from './assignment.model';
-import { AssignmentsService } from '../shared/assignments.service';
+
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 
 @Component({
   selector: 'app-assignments',

@@ -1,10 +1,14 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AssignmentsComponent } from './assignments/assignments.component';
+import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { PagesRoutingModule } from './pages-routing.module';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
+import { MatNativeDateModule } from '@angular/material/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,36 +21,25 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-
-import { FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-
-import { ScrollingModule } from '@angular/cdk/scrolling';
-
-
-import { AppRoutingModule } from './app-routing.module';
-import { PagesComponent } from './pages/pages.component';
-
-
+import { DatePipe } from '@angular/common';
+import { PagesComponent } from './pages.component';
 
 @NgModule({
   declarations: [
-    AppComponent
-  ],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule, 
+    PagesComponent,
+    AssignmentsComponent,
+    AddAssignmentComponent,
+    AssignmentDetailComponent,
+    EditAssignmentComponent,
+    LoginComponent,
+    ],
+  imports: [PagesRoutingModule,FormsModule, 
     HttpClientModule,
     MatNativeDateModule, ScrollingModule,
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    MatTableModule, MatPaginatorModule,DatePipe],
+  providers: [DatePipe],
 })
-export class AppModule { }
+export class PagesModule {}

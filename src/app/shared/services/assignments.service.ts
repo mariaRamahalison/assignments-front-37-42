@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Assignment } from '../assignments/assignment.model';
 import { Observable, catchError, forkJoin, map, of, tap } from 'rxjs';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
-import { bdInitialAssignments } from './data';
+import { bdInitialAssignments } from '../data/data';
+import { Assignment } from 'src/app/pages/assignments/assignment.model';
 
 @Injectable({
   providedIn: 'root'
