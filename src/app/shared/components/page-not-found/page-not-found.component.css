@@ -1,0 +1,6 @@
+.centered-div, h2, p, a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }

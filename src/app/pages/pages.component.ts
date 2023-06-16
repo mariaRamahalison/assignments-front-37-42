@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { AuthService } from '../shared/auth/auth.service';
+import { AuthService } from '../shared/services/auth/auth.service';
 import { AssignmentsService } from '../shared/services/assignments.service';
 
 @Component({

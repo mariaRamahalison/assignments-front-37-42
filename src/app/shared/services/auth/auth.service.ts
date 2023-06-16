@@ -1,4 +1,7 @@
 import { Injectable } from '@angular/core';
+import { User } from '../../model/user.dto';
+import { Observable, map } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -6,13 +9,18 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   loggedIn = false;
 
-  constructor() { }
+  uri_api = 'http://localhost:8010/api';
 
-  // théoriquement, on devrait passer en paramètre le login
-  // et le password, cette méthode devrait faire une requête
-  // vers un Web Service pour vérifier que c'est ok, renvoyer
-  // un token d'authentification JWT etc.
-  // elle devrait renvoyer un Observable etc.
+  constructor(private http: HttpClient) { }
+
+  signin(user: User): Observable<any> {
+    return this.http.post(`${this.uri_api}/user/login`, user).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
   logIn() {
     console.log("ON SE LOGGE")
     this.loggedIn = true;

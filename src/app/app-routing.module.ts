@@ -7,6 +7,11 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
   },
   {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    // canActivate: [AuthGuard],
+  },
+  {
     path: '**',
     loadChildren: () =>
       import('./shared/components/page-not-found/page-not-found.module').then(
