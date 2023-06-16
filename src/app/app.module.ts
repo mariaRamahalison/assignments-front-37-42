@@ -20,8 +20,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
-import { FormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -30,6 +30,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
 import { LoginComponent } from './login/login.component';  
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatSelectModule} from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -51,7 +53,7 @@ const routes: Routes = [
   {
     path: 'assignments/:id/edit',
     component: EditAssignmentComponent,
-    canActivate: [authGuard]
+    // canActivate: [authGuard]
   },
   {
     path: 'login',
@@ -66,7 +68,8 @@ const routes: Routes = [
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -77,9 +80,19 @@ const routes: Routes = [
     MatButtonModule, MatIconModule, MatDividerModule,
     MatInputModule, MatFormFieldModule, MatDatepickerModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
-    MatTableModule, MatPaginatorModule
+    MatTableModule, MatPaginatorModule,
+    MatButtonModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+
+

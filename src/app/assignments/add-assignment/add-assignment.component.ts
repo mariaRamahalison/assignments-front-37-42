@@ -2,22 +2,39 @@ import { Component } from '@angular/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
-  styleUrls: ['./add-assignment.component.css']
+  styleUrls: ['./add-assignment.component.css'],
+ 
 })
 export class AddAssignmentComponent {
+
+  firstFormGroup = this._formBuilder.group({
+    firstCtrl: ['', Validators.required],
+  });
+  secondFormGroup = this._formBuilder.group({
+    secondCtrl: ['', Validators.required],
+  });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  isLinear = false;
 
   // champs du formulaire
   nomDevoir = "";
   dateDeRendu!: Date;
 
 
-  constructor(private assignmentsService: AssignmentsService,
-              private router:Router) { }
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private router:Router,
+    private _formBuilder: FormBuilder
+  ) { }
 
+              
   onSubmit(event: any) {
     // On vérifie que les champs ne sont pas vides
     if (this.nomDevoir === "") return;

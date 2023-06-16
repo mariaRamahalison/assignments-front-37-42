@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentsService } from 'src/app/shared/assignments.service';
 import { Assignment } from '../assignment.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
  selector: 'app-edit-assignment',
@@ -14,10 +15,22 @@ export class EditAssignmentComponent implements OnInit {
  nomAssignment!: string;
  dateDeRendu!: Date;
 
+ firstFormGroup = this._formBuilder.group({
+  firstCtrl: ['', Validators.required],
+});
+secondFormGroup = this._formBuilder.group({
+  secondCtrl: ['', Validators.required],
+});
+thirdFormGroup = this._formBuilder.group({
+  thirdCtrl: ['', Validators.required],
+});
+  isLinear = false;
+
  constructor(
    private assignmentsService: AssignmentsService,
    private route: ActivatedRoute,
-   private router: Router
+   private router: Router,
+   private _formBuilder: FormBuilder
  ) {}
 
  ngOnInit(): void {
