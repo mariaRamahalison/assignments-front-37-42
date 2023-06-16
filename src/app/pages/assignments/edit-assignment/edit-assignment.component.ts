@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Assignment } from '../assignment.model';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 
 @Component({
  selector: 'app-edit-assignment',
@@ -14,10 +15,22 @@ export class EditAssignmentComponent implements OnInit {
  nomAssignment!: string;
  dateDeRendu!: Date;
 
+ firstFormGroup = this._formBuilder.group({
+  firstCtrl: ['', Validators.required],
+});
+secondFormGroup = this._formBuilder.group({
+  secondCtrl: ['', Validators.required],
+});
+thirdFormGroup = this._formBuilder.group({
+  thirdCtrl: ['', Validators.required],
+});
+  isLinear = false;
+
  constructor(
    private assignmentsService: AssignmentsService,
    private route: ActivatedRoute,
-   private router: Router
+   private router: Router,
+   private _formBuilder: FormBuilder
  ) {}
 
  ngOnInit(): void {
@@ -39,7 +52,7 @@ export class EditAssignmentComponent implements OnInit {
   console.log("Fragment = " + fragment);
 
   this.assignmentsService.getAssignment(id)
-  .subscribe((assignment) => {
+  .subscribe((assignment: Assignment | undefined) => {
     if (!assignment) return;
     this.assignment = assignment;
     // Pour pré-remplir le formulaire
@@ -55,7 +68,7 @@ onSaveAssignment() {
   this.assignment.dateDeRendu = this.dateDeRendu;
   this.assignmentsService
     .updateAssignment(this.assignment)
-    .subscribe((message) => {
+    .subscribe((message: any) => {
       console.log(message);
 
       // navigation vers la home page

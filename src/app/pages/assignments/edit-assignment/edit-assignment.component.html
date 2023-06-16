@@ -1,18 +1,62 @@
-<div class="container" *ngIf="assignment">
-    <h1>Edition de l'assignment {{assignment?.nom}}</h1>
-    <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
-      <mat-form-field>
-        <input matInput placeholder="Edition du nom" [(ngModel)]="nomAssignment" name="assignment-name">
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
-        <mat-datepicker-toggle matSuffix [for]="picker">
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <button mat-raised-button color="primary" [disabled]="((!nomAssignment)||(!dateDeRendu))">
-        Sauver
-      </button>
-    </form>
-   </div>
+<div class="col-md-6">
+  <div class="card mb-4">
+    <h5 class="card-header">Edition de l'assignment {{assignment?.nom}}</h5>
+    <div class="card-body">
+        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+          <mat-step [stepControl]="firstFormGroup">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Edition du nom</ng-template>
+              <mat-form-field appearance="outline">
+                <mat-label>Edition du nom</mat-label>
+                <input matInput formControlName="firstCtrl" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Suivant</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Edition la matière</ng-template>
+              <mat-form-field appearance="outline">
+                  <mat-label>Matière</mat-label>
+                  <mat-select>
+                  <mat-option value="one">Matière 1</mat-option>
+                  <mat-option value="two">Matière 2</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Precedent</button>
+                <button mat-button matStepperNext>Suivant</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step [stepControl]="thirdFormGroup">
+              <form [formGroup]="thirdFormGroup">
+                <ng-template matStepLabel>Complétez la date de rendu</ng-template>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
+                  <mat-datepicker-toggle matSuffix [for]="picker">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              
+                <div>
+                  <button mat-button matStepperPrevious>Precedent</button>
+                  <button mat-button matStepperNext>Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Fait</ng-template>
+            <p>Ajouter un devoir.</p>
+            <div>
+              <button mat-button matStepperPrevious>Precedent</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </div>
+  </div>
+</div>
       
