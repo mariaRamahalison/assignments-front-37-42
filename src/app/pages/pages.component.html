@@ -1,22 +1,39 @@
-<h1>
-    <nav>
-        <a routerLink="/home">{{title}}</a>
-    </nav>
-</h1>
-<p>
-    <button mat-raised-button color="primary" (click)="creerDonneesDeTest()">
-        Peupler BD avec données de test
-    </button>
-</p>
 
-<div *ngIf="currentRoute !== '/login'">
-    <p>Route courante : {{currentRoute}}</p>
-    <nav>
-        <a routerLink="/login">
-            <button mat-raised-button (click)="login()">{{labelConnexion}}</button>
-        </a>
-    </nav>
-    <p *ngIf="isLogged()">Vous êtes connecté en tant que {{nom}}</p>
+<div class="layout-wrapper layout-content-navbar">
+    <div class="layout-container">
+        <app-sidebar></app-sidebar>
+        <div class="layout-page">
+            <app-navbar></app-navbar>
+            <div class="content-wrapper">
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+            <div class="layout-overlay layout-menu-toggle"></div>
+        </div>
+        
+       
+        <!-- <h1>
+            <nav>
+                <a routerLink="/home">{{title}}</a>
+            </nav>
+        </h1>
+        <p>
+            <button mat-raised-button color="primary" (click)="creerDonneesDeTest()">
+                Peupler BD avec données de test
+            </button>
+        </p>
+        
+        <div *ngIf="currentRoute !== '/login'">
+            <p>Route courante : {{currentRoute}}</p>
+            <nav>
+                <a routerLink="/login">
+                    <button mat-raised-button (click)="login()">{{labelConnexion}}</button>
+                </a>
+            </nav>
+            <p *ngIf="isLogged()">Vous êtes connecté en tant que {{nom}}</p>
+        </div>
+         -->
+       
+    </div>
 </div>
-
-<router-outlet></router-outlet>
