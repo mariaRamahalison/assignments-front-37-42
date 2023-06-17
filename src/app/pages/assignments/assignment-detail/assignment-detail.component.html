@@ -1,4 +1,4 @@
-<mat-card *ngIf="assignmentTransmis">
+<!-- <mat-card *ngIf="assignmentTransmis">
   <mat-card-content>
     <mat-card-title>{{assignmentTransmis?.nom}}</mat-card-title>
     <mat-card-subtitle>Date de rendu : {{assignmentTransmis?.dateDeRendu | date: 'dd/MM/yy'}}</mat-card-subtitle>
@@ -18,3 +18,65 @@
   <button mat-raised-button color="accent" (click)="onDeleteAssignment()">DELETE</button>
   </mat-card-actions>
 </mat-card>
+ -->
+
+
+  <mat-card-header class="mb-3">
+    <mat-card-title-group>
+      <mat-card-title><h2 class="m-0 me-2 ">Titre du devoir</h2></mat-card-title>
+      <mat-card-subtitle ><small class="text-muted">02/02/2023</small></mat-card-subtitle>
+      <mat-card-subtitle class="mb-2"><small class="text-muted">Status : <span class="text-primary">RENDU</span></small></mat-card-subtitle>
+      <mat-card-subtitle> <h3 class="mb-3"><small class="text-muted">Note : </small> 8,258 /20</h3> </mat-card-subtitle>
+    </mat-card-title-group>
+  </mat-card-header>
+  <mat-card-content  >
+    <ul class="p-0 m-0">
+      <li class="d-flex mb-2 pb-1">
+        <div class="avatar flex-shrink-0 me-3">
+          <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+        </div>
+        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+          <div class="me-2">
+            <h6 class="mb-0">Matière</h6>
+            <span >Mobile</span>
+          </div>
+        </div>
+      </li>
+      <li class="d-flex mb-2 pb-1">
+        <div class="avatar flex-shrink-0 me-3">
+          <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+        </div>
+        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+          <div class="me-2">
+            <h6 class="mb-0">Elève</h6>
+            <span >Randriamihaja Ambinintsoa Maria</span>
+          </div>
+        </div>
+      </li>
+      <li class="d-flex mb-2 pb-1">
+        <div class="avatar flex-shrink-0 me-3">
+          <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+        </div>
+        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+          <div class="me-2">
+            <h6 class="mb-0">Professeur</h6>
+            <span >Ramaroson Andy Faniry</span>
+          </div>
+        </div>
+      </li>
+      <li class="d-flex pb-1" >
+        <div class="avatar flex-shrink-0 me-3">
+          <span class="avatar-initial rounded bg-label-primary"
+            ><i class="bx bx-pencil"></i
+          ></span>
+        </div>
+        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+          <div class="me-2">
+            <h6 class="mb-0">Remarque</h6>
+            <p >Football, Cricket Kit
+              sdqsdqsdsqdqsdqsd </p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </mat-card-content>
