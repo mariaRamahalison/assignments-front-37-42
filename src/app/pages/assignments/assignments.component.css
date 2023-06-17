@@ -1,7 +1,7 @@
-.container {
+/* .container {
     display:flex;
     flex-direction:column;
-}
+} */
 
 .ajouterBtn {
     align-self: flex-end;
@@ -42,4 +42,17 @@
     text-align: center;
     font-weight: bold;
   }
-  
+
+  mat-card-header {
+    display: flow-root;
+}
+
+.text-one-line{
+    max-width:200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+
