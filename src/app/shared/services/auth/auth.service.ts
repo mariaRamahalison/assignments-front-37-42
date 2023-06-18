@@ -89,4 +89,10 @@ export class AuthService {
     });
     return isConnected;
   }
+
+  logout(){
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.router.navigate(['auth/login']);
+  }
 }
