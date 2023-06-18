@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { connectGuard } from './shared/services/auth/auth.guard';
 const routes: Routes = [ 
   {
     path: '',
     loadChildren: () => import('./pages/pages.module').then((m) => m.PagesModule),
-    // canActivate: [AuthGuard],
+    // canActivate: [authGuard],
   },
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    // canActivate: [AuthGuard],
+    canActivate: [connectGuard],
   },
   {
     path: '**',

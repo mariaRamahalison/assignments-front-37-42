@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../../model/user.dto';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,18 @@ export class AuthService {
 
   uri_api = 'http://localhost:8010/api';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   signin(user: User): Observable<any> {
     return this.http.post(`${this.uri_api}/user/login`, user).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
+  signup(user: User): Observable<any> {
+    return this.http.post(`${this.uri_api}/user`, user).pipe(
       map((response: any) => {
         return response;
       })
@@ -34,13 +43,50 @@ export class AuthService {
 
   // si on l'utilisait on ferai isAdmin().then(...)
   isAdmin() {
-    // Pour le moment, version simplifiée...
-    // on suppose qu'on est admin si on est loggué
     const isUserAdminPromise = new Promise((resolve, reject) => {
-        resolve(this.loggedIn);
+      this.isConnected().then((user:any)=>{
+        if(user){
+          const userJSON = JSON.parse(user);
+          if(userJSON.type === 'admin'){
+            resolve(true);
+          }else{
+            this.router.navigate(['**']);
+            resolve(false);
+          }
+        }else{
+          this.router.navigate(['/auth/login']);
+          resolve(false);
+        }
+      })
     });
-
-    // on renvoie la promesse qui dit si on est admin ou pas
     return isUserAdminPromise;
+  }
+
+  isConnected(){
+    const isConnected = new Promise((resolve, reject) => {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      if (user && token) {
+       resolve(user)
+      } else {
+        this.router.navigate(['/auth/login']);
+        resolve(false);
+      }
+    });
+    return isConnected;
+  }
+
+  isNotConnected(){
+    const isConnected = new Promise((resolve, reject) => {
+      const user = localStorage.getItem('user');
+      const token = localStorage.getItem('token');
+      if (!user || !token) {
+       resolve(true)
+      } else {
+        this.router.navigate(['/']);
+        resolve(false);
+      }
+    });
+    return isConnected;
   }
 }

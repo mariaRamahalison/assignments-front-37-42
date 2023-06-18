@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
@@ -10,8 +12,7 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 })
 export class LoginComponent implements OnInit{
   formGroup!: FormGroup;
-
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(private fb: FormBuilder, private authService: AuthService,private router: Router,private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -32,11 +33,14 @@ export class LoginComponent implements OnInit{
                 localStorage.setItem('token', res.token );
                 localStorage.setItem('user', JSON.stringify(res.user));
               }
-              console.log(res);
+              this.router.navigate(['/']);
             },
             error: (error: any) => {
-              console.log("error");
-            },
+              this._snackBar.open("Email ou mots de passe incorrect", "OK", {
+                duration: 3000,
+                panelClass: ['red-snackbar'],
+               });
+            }
           });
     }else {
       Object.values(this.formGroup.controls).forEach((control) => {
