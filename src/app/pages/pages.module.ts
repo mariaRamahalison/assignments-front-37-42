@@ -7,6 +7,8 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DatePipe } from '@angular/common';
 import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/module/shared.module';
+import { NavbarComponent } from '../shared/components/navbar/navbar.component';
+import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { SharedModule } from '../shared/module/shared.module';
     AssignmentsComponent,
     AddAssignmentComponent,
     AssignmentDetailComponent,
-    EditAssignmentComponent
+    EditAssignmentComponent,
+    NavbarComponent,
+    SidebarComponent
     ],
   imports: [PagesRoutingModule,SharedModule, DatePipe],
   providers: [DatePipe],
