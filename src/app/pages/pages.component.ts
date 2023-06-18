@@ -17,11 +17,9 @@ export class PagesComponent {
   constructor(private authService:AuthService, 
               private router:Router,
               private assigmmentsService:AssignmentsService) {
-    console.log(router.url);
 
     router.events.subscribe(event => {
       if(event instanceof NavigationEnd) {
-        console.log(event.url);
         this.currentRoute = event.url;
       }
     });

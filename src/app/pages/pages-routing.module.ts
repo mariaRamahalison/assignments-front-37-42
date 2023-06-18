@@ -6,35 +6,44 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { authGuard } from '../shared/services/auth/auth.guard';
+import { PagesComponent } from './pages.component';
 
 
 const routes: Routes = [
-    {
-      path: '',
-      component: AssignmentsComponent
-    },
-    {
-      path: 'home',
-      component: AssignmentsComponent
-    },
-    {
-      path: 'add',
-      component: AddAssignmentComponent
-    },
-    {
-      path: 'assignments/:id',
-      component: AssignmentDetailComponent
-    },
-    {
-      path: 'assignments/:id/edit',
-      component: EditAssignmentComponent,
-      canActivate: [authGuard]
-    },
-    {
-      path: 'login',
-      component: LoginComponent
-    }
-  ]
+  {
+    path: '',
+    component: PagesComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'home',
+        // canActivate: [AuthGuard],
+      },
+      {
+        path: 'home',
+        component: AssignmentsComponent
+      },
+      {
+        path: 'add',
+        component: AddAssignmentComponent
+      },
+      {
+        path: 'assignments/:id',
+        component: AssignmentDetailComponent
+      },
+      {
+        path: 'assignments/:id/edit',
+        component: EditAssignmentComponent,
+        canActivate: [authGuard]
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      }
+    ]
+  }
+]
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],

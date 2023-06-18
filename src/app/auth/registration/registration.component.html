@@ -1,1 +1,105 @@
-<p>registration works!</p>
+<div class="container-xxl">
+    <div class="authentication-wrapper authentication-basic container-p-y">
+      <div class="authentication-inner">
+        <!-- Register Card -->
+        <div class="card">
+          <div class="card-body">
+            <!-- Logo -->
+            <div class="app-brand justify-content-center">
+                <span class="app-brand-logo demo">
+                  <img
+                    width="25"
+                    viewBox="0 0 25 42"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    src="assets/img/favicon/icon.png"
+                  >
+                </span>
+                <span class="app-brand-text demo text-body fw-bolder">ssignement</span>
+              </div>
+            <!-- /Logo -->
+            <h4 class="mb-2">Inscription</h4>
+            <form id="formRegistration" class="mb-3" [formGroup]="formGroup" class="form" (ngSubmit)="submitForm()" enctype='multipart/form-data'>
+              <div class="mb-3">
+                <label for="username" class="form-label">Nom</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="username"
+                  name="username"
+                  placeholder="Entrer votre nom"
+                  formControlName="nom"
+                />
+                <mat-error *ngIf="formGroup.get('nom')?.hasError('required') && formGroup.get('nom')?.touched">
+                    Nom <strong>requis</strong>
+                </mat-error>
+              </div>
+              <div class="mb-3">
+                <label for="firstname" class="form-label">Prénom</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstname"
+                  name="firstname"
+                  placeholder="Entrer votre prénom"
+                  formControlName="prenom"
+                />
+                <mat-error *ngIf="formGroup.get('prenom')?.hasError('required') && formGroup.get('prenom')?.touched">
+                    Prénom <strong>requis</strong>
+                </mat-error>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" id="email" name="email" formControlName="email" placeholder="Entrer votre email" />
+                <mat-error *ngIf="formGroup.get('email')?.hasError('email') && !formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
+                    Veuillez entré un email valide
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
+                Email <strong>requis</strong>
+                </mat-error>
+            </div>
+              <div class="mb-3">
+                <label class="form-label" for="password">Mots de passe</label>
+                  <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                    aria-describedby="password"
+                    formControlName="password"
+                    matInput
+                  />
+                  <mat-error *ngIf="formGroup.get('password')?.hasError('required') && formGroup.get('password')?.touched">
+                    Mots de passe <strong>requis</strong>
+                </mat-error>
+              </div>
+              <div class="mb-3">
+                <label for="photo" class="form-label">Photo de profil</label>
+                <input class="form-control" type="file" id="file" accept="image/*" (change)="onFileSelected($event)"/>
+              </div>
+              <div class="mb-3">
+                <label for="type" class="form-label">Type de profil</label>
+                <mat-radio-group formControlName="type" aria-label="Choisir une type" class="form-control-plaintext form-check form-check-inline mt-3 radioType">
+                    <mat-radio-button value="etudiant" >Etudiant</mat-radio-button>
+                    <mat-radio-button value="prof" class="radioProf">Professeur</mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="formGroup.get('type')?.hasError('required') && formGroup.get('type')?.touched">
+                    Type de profil <strong>requis</strong>
+                </mat-error>
+              </div>
+              <button class="btn btn-primary d-grid w-100">S'inscrire</button>
+            </form>
+            <p class="text-center">
+              <span>Vous aviez déjà un compte?</span>
+              <a href="auth/login">
+                <span> Se connecter</span>
+              </a>
+            </p>
+          </div>
+        </div>
+        <!-- Register Card -->
+      </div>
+    </div>
+  </div>

@@ -19,9 +19,18 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import {MatRadioModule} from '@angular/material/radio';
+import { MatiereComponent } from '../components/matiere/matiere.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { SpinnerComponent } from '../components/spinner/spinner.component';
 
 @NgModule({
+  declarations: [
+    MatiereComponent,
+    SpinnerComponent
+  ],
   exports: [
     FormsModule, 
     HttpClientModule,
@@ -41,7 +50,13 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatRadioModule,
+    MatiereComponent,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    SpinnerComponent
   ],
   imports: [
     FormsModule, 
@@ -62,7 +77,11 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatInputModule,
     MatSelectModule,
     MatStepperModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
 })
 export class SharedModule {}
