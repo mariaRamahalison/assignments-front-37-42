@@ -1,9 +1,13 @@
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
-import { Assignment } from './assignment.model';
+import { Assignment } from '../../shared/model/assignment.model';
 
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
 import { AssignmentsService } from 'src/app/shared/services/assignments.service';
+import { User } from 'src/app/shared/model/user.dto';
+import { Matiere } from 'src/app/shared/model/matiere.model';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-assignments',
@@ -14,8 +18,11 @@ export class AssignmentsComponent implements OnInit {
   titre="Liste des devoirs à rendre";
   // les données à afficher
   assignments:Assignment[] = [];
+
+  assignment : Assignment| undefined;
   // Pour la data table
   displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu'];
+  user!: User;
 
   // propriétés pour la pagination
   page: number=1;
@@ -26,21 +33,20 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number = 0;
   hasNextPage: boolean = false;
   nextPage: number = 0;
+  
 ;
 
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
   constructor(private assignmentsService:AssignmentsService,
-              private ngZone: NgZone) {    
+              private ngZone: NgZone,
+              private router:Router,
+              private _snackBar: MatSnackBar) {    
   }
   
   ngOnInit(): void {
     console.log("OnInit Composant instancié et juste avant le rendu HTML (le composant est visible dans la page HTML)");
-    // exercice : regarder si il existe des query params
-    // page et limit, récupérer leur valeurs si elles existent
-    // et les passer à la méthode getAssignments
-    // TODO
-
+    this.user= JSON.parse(localStorage.getItem('user')!);
     this.getAssignments();
   }
 
@@ -83,12 +89,43 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
+  detail(item : Assignment){
+    this.assignment = item;
+    
+  }
+
+  edit(item :Assignment){
+    this.assignment = item;
+    this.router.navigate(['/assignments/edit', this.assignment._id]);
+  }
+
+  delete(assignment : Assignment ){
+    this.assignmentsService.deleteAssignment(assignment._id)
+      .subscribe({
+        next: (message: any) => {
+          this.getAssignments();
+          this._snackBar.open("Assignement supprimé avec succès", "OK", {
+            duration: 3000,
+            panelClass: ['green-snackbar'],
+           });
+      },
+      error: (error: any) => {
+        this._snackBar.open(error.error, "OK", {
+          duration: 3000,
+          panelClass: ['red-snackbar'],
+         });
+      }
+    });
+  }
+
   getAssignments() {
     console.log("On va chercher les assignments dans le service");
-
-    this.assignmentsService.getAssignments(this.page, this.limit)
+    let auteur = (this.user.type === "etudiant") ? this.user._id : null ;
+    let matiere = (this.user.type === "prof") ? this.user._id : null ;
+    this.assignmentsService.getAssignments(this.page, this.limit,matiere,auteur)
     .subscribe(data => {
       this.assignments = data.docs;
+      console.log(this.assignments);
       this.page = data.page;
       this.limit = data.limit;
       this.totalDocs = data.totalDocs;
@@ -103,7 +140,7 @@ export class AssignmentsComponent implements OnInit {
   }
 
   getAddAssignmentsForScroll() {
-    this.assignmentsService.getAssignments(this.page, this.limit)
+    this.assignmentsService.getAssignments(this.page, this.limit, null ,null)
     .subscribe(data => {
       // au lieu de remplacer le tableau, on va concaténer les nouvelles données
       this.assignments = this.assignments.concat(data.docs);
@@ -120,6 +157,10 @@ export class AssignmentsComponent implements OnInit {
 
       console.log("Données ajoutées pour scrolling");
     });
+  }
+
+  isAdmin(){
+    return this.user?.type === "admin";
   }
 
   premierePage() {
