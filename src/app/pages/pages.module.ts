@@ -9,6 +9,7 @@ import { PagesComponent } from './pages.component';
 import { SharedModule } from '../shared/module/shared.module';
 import { NavbarComponent } from '../shared/components/navbar/navbar.component';
 import { SidebarComponent } from '../shared/components/sidebar/sidebar.component';
+import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SidebarComponent } from '../shared/components/sidebar/sidebar.component
     AssignmentDetailComponent,
     EditAssignmentComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ProfilComponent
     ],
   imports: [PagesRoutingModule,SharedModule, DatePipe],
   providers: [DatePipe],

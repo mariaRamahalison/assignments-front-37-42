@@ -3,6 +3,7 @@ import { User } from '../../model/user.dto';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class AuthService {
   loggedIn = false;
 
-  uri_api = 'http://localhost:8010/api';
+  uri_api = environment.api_url;
 
   constructor(private http: HttpClient, private router: Router) { }
 

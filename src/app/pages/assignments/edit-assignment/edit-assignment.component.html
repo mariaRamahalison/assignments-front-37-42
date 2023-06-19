@@ -2,59 +2,88 @@
   <div class="card mb-4">
     <h5 class="card-header">Edition de l'assignment {{assignment?.nom}}</h5>
     <div class="card-body">
-        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
-          <mat-step [stepControl]="firstFormGroup">
+        <mat-stepper orientation="vertical" linear="false" #stepper >
+          <mat-step [stepControl]="firstFormGroup" errorMessage = "Le nom est requis">
+            <ng-template  matStepLabel > Remplissez votre nom </ng-template > 
             <form [formGroup]="firstFormGroup">
               <ng-template matStepLabel>Edition du nom</ng-template>
               <mat-form-field appearance="outline">
                 <mat-label>Edition du nom</mat-label>
-                <input matInput formControlName="firstCtrl" required>
+                <input matInput formControlName="nom">
               </mat-form-field>
               <div>
                 <button mat-button matStepperNext>Suivant</button>
               </div>
             </form>
           </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
+          <mat-step [stepControl]="secondFormGroup" errorMessage = "La matière est requise">
             <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Edition la matière</ng-template>
-              <mat-form-field appearance="outline">
-                  <mat-label>Matière</mat-label>
-                  <mat-select>
-                  <mat-option value="one">Matière 1</mat-option>
-                  <mat-option value="two">Matière 2</mat-option>
-                  </mat-select>
-              </mat-form-field>
+              <ng-template matStepLabel>Remplissez la matière</ng-template>
+               <mat-form-field appearance="outline">
+                    <mat-label>Edition de la matière</mat-label>
+                    <mat-select formControlName="matiere">
+                      <mat-option *ngFor="let item of matieres" [value]="item._id" >{{item.nom}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
               <div>
                 <button mat-button matStepperPrevious>Precedent</button>
                 <button mat-button matStepperNext>Suivant</button>
               </div>
             </form>
           </mat-step>
-          <mat-step [stepControl]="thirdFormGroup">
-              <form [formGroup]="thirdFormGroup">
-                <ng-template matStepLabel>Complétez la date de rendu</ng-template>
-                <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu" name="date">
-                  <mat-datepicker-toggle matSuffix [for]="picker">
-                  </mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              
+          <mat-step [stepControl]="thirdFormGroup" errorMessage ="La date de rendu est requise">
+                <form [formGroup]="thirdFormGroup" >
+                  <ng-template matStepLabel>Remplissez la date de rendu</ng-template>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Edition date de rendu</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateRendu" name="date"  required>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"  ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  <div>
+                    <button mat-button matStepperPrevious>Precedent</button>
+                    <button mat-button matStepperNext>Suivant</button>
+                  </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="fourthFormGroup" errorMessage = "L'auteur est requise">
+              <form [formGroup]="fourthFormGroup">
+                <ng-template matStepLabel>Remplissez l'auteur</ng-template>
+                  <mat-form-field appearance="outline">
+                      <mat-label>Edition de l'auteur</mat-label>
+                      <mat-select formControlName="auteur">
+                        <mat-option *ngFor="let item of auteurs" [value]="item._id" >{{item.nom}} {{item.prenom}}</mat-option>
+                      </mat-select>
+                  </mat-form-field>
                 <div>
                   <button mat-button matStepperPrevious>Precedent</button>
                   <button mat-button matStepperNext>Suivant</button>
                 </div>
               </form>
             </mat-step>
-          <mat-step>
-            <ng-template matStepLabel>Fait</ng-template>
-            <p>Ajouter un devoir.</p>
-            <div>
-              <button mat-button matStepperPrevious>Precedent</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div>
-          </mat-step>
+            <mat-step [stepControl]="fifthFormGroup" [optional]="true">
+              <form [formGroup]="fifthFormGroup">
+                <ng-template matStepLabel>Remplissez la remarque</ng-template>
+                <mat-form-field appearance="outline">
+                  <mat-label>Edition de la remarque</mat-label>
+                  <input matInput formControlName="remarque" >
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Precedent</button>
+                  <button mat-button matStepperNext>Suivant</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Fait</ng-template>
+              <p>Edition de l'assignment</p>
+              <div>
+                <button mat-button matStepperPrevious>Precedent</button>
+                <button mat-button (click)="editAssignment()">Enregistrer</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
         </mat-stepper>
       </div>
   </div>
