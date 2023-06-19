@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {  map } from 'rxjs';
-import { options } from '../utils/utils';
+import { environment, options } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MatiereService {
-  uri_api = 'http://localhost:8010/api';
+  uri_api = environment.api_url;
   header = options;
   constructor(private http: HttpClient) { }
 

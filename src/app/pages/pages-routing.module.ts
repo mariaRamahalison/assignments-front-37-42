@@ -4,9 +4,9 @@ import { AssignmentsComponent } from './assignments/assignments.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import { LoginComponent } from '../auth/login/login.component';
 import { authGuard } from '../shared/services/auth/auth.guard';
 import { PagesComponent } from './pages.component';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   {
@@ -37,9 +37,9 @@ const routes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'login',
-        component: LoginComponent
-      }
+        path: 'profil',
+        component: ProfilComponent
+      },
     ]
   }
 ]
