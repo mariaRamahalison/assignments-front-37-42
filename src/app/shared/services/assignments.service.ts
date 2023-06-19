@@ -15,7 +15,7 @@ assignments:Assignment[] = []
   constructor(private loggingService:LoggingService,
     private http:HttpClient) { }
 
-    uri_api = environment.api_url+'assignment';
+    uri_api = environment.api_url+'/assignment';
 
   getAssignments(page:number, limit:number, matiere: string|null , auteur : string|null):Observable<any> {
     let params = "?page=" + page + "&limit=" + limit;

@@ -1,8 +1,8 @@
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Assignements /</span> Ajout</h4>
 <div class="col-md-6">
     <div class="card mb-4">
       <h5 class="card-header">Ajouter un assignment</h5>
       <div class="card-body">
-
           <mat-stepper orientation="vertical" linear="false" #stepper>
             <mat-step [stepControl]="auteurFormGroup" errorMessage = "Le nom est requis" *ngIf="isAdmin()">
               <form [formGroup]="auteurFormGroup">
