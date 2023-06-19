@@ -25,14 +25,15 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        component: AddAssignmentComponent
+        component: AddAssignmentComponent,
+        canActivate: [authGuard]
       },
       {
         path: 'assignments/:id',
         component: AssignmentDetailComponent
       },
       {
-        path: 'assignments/:id/edit',
+        path: 'assignments/edit/:id',
         component: EditAssignmentComponent,
         canActivate: [authGuard]
       },

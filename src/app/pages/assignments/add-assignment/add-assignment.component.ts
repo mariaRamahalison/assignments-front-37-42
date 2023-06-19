@@ -1,61 +1,100 @@
 import { Component } from '@angular/core';
-import { Assignment } from '../assignment.model';
 import { Router } from '@angular/router';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder,  Validators } from '@angular/forms';
 import { AssignmentsService } from 'src/app/shared/services/assignments.service';
+import { Matiere } from 'src/app/shared/model/matiere.model';
+import { MatieresService } from 'src/app/shared/services/matieres.service';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { User } from 'src/app/shared/model/user.dto';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersService } from 'src/app/shared/services/users.service';
 
 @Component({
   selector: 'app-add-assignment',
   templateUrl: './add-assignment.component.html',
   styleUrls: ['./add-assignment.component.css'],
- 
+  providers : [
+    {
+      provide : STEPPER_GLOBAL_OPTIONS,
+       useValue : { showError : true },
+    },
+  ]
 })
 export class AddAssignmentComponent {
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-  thirdFormGroup = this._formBuilder.group({
-    thirdCtrl: ['', Validators.required],
-  });
-  isLinear = false;
-
-  // champs du formulaire
-  nomDevoir = "";
-  dateDeRendu!: Date;
-
+  auteurFormGroup = this._formBuilder.group({ auteur: [''], });
+  nomFormGroup = this._formBuilder.group({ nom: ['', Validators.required], });
+  matiereFormGroup = this._formBuilder.group({ matiere: ['', Validators.required], });
+  dateRenduFormGroup = this._formBuilder.group({ dateRendu: ['', Validators.required],});
+  user!: User ; 
+  matieres:Matiere[] = [];
+  auteurs : User[] = [];
 
   constructor(
-    private assignmentsService: AssignmentsService,
+    private assignmentsService : AssignmentsService,
+    private matieresService: MatieresService,
     private router:Router,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar,
+    private usersService: UsersService
   ) { }
 
-              
-  onSubmit(event: any) {
-    // On vérifie que les champs ne sont pas vides
-    if (this.nomDevoir === "") return;
-    if (this.dateDeRendu === undefined) return;
+  ngOnInit(): void {
+    this.user= JSON.parse(localStorage.getItem('user')!);
+    if(!this.isAdmin()) this.auteurFormGroup.controls.auteur.setValue(this.user._id);
+    this.getMatiere();
+    this.getAuteurs();
+    this.initForm();
+  }
 
-    let nouvelAssignment = new Assignment();
-    // génération d'id, plus tard ce sera fait dans la BD
-    nouvelAssignment.id = Math.abs(Math.random() * 1000000000000000);
-    nouvelAssignment.nom = this.nomDevoir;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
+  initForm(){
+    
+  }
 
-    // on demande au service d'ajouter l'assignment
+  isAdmin(){
+    return this.user?.type === "admin";
+  }
+       
+  getMatiere(){
+    this.matieresService.getMatieres()
+    .subscribe((res: any) => {
+      this.matieres= res;
+    });
+  }
+
+  getAuteurs(){
+    this.usersService.getUsers("etudiant")
+    .subscribe((res: any) => {
+      this.auteurs= res;
+      console.log(this.auteurs);
+    });
+  }
+
+  saveAssignment() {
+    if(this.nomFormGroup.invalid ||
+      this.matiereFormGroup.invalid ||
+      this.dateRenduFormGroup.invalid) return ;
+
+    const nouvelAssignment = {
+      nom : this.nomFormGroup.controls.nom.value ,
+      matiere : this.matiereFormGroup.controls.matiere.value,
+      dateRendu : new Date(this.dateRenduFormGroup.controls.dateRendu.value),
+      auteur: this.auteurFormGroup.controls.auteur.value
+    }
+    console.log(nouvelAssignment);
+
     this.assignmentsService.addAssignment(nouvelAssignment)
-      .subscribe((message: any) => {
+      .subscribe({
+        next: (message: any) => {
         console.log(message);
-
-        // On va naviguer vers la page d'accueil pour afficher la liste
-        // des assignments
         this.router.navigate(["/home"]);
-
-      });
+      },
+      error: (error: any) => {
+        this._snackBar.open(error.error, "OK", {
+          duration: 3000,
+          panelClass: ['red-snackbar'],
+         });
+      }
+    });
   }
 }
