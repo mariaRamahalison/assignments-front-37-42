@@ -4,6 +4,7 @@ import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 import { bdInitialAssignments } from '../data/data';
 import { Assignment } from 'src/app/shared/model/assignment.model';
+import { environment } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ assignments:Assignment[] = []
   constructor(private loggingService:LoggingService,
     private http:HttpClient) { }
 
-    uri_api = 'http://localhost:8010/api/assignment';
+    uri_api = environment.api_url+'assignment';
 
   getAssignments(page:number, limit:number, matiere: string|null , auteur : string|null):Observable<any> {
     let params = "?page=" + page + "&limit=" + limit;

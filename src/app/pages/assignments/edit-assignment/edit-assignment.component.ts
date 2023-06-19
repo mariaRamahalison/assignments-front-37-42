@@ -4,11 +4,11 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Assignment } from 'src/app/shared/model/assignment.model';
 import { Matiere } from 'src/app/shared/model/matiere.model';
-import { MatieresService } from 'src/app/shared/services/matieres.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { User } from 'src/app/shared/model/user.dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatiereService } from 'src/app/shared/services/matiere.service';
 
 @Component({
  selector: 'app-edit-assignment',
@@ -36,7 +36,7 @@ export class EditAssignmentComponent implements OnInit {
 
  constructor(
    private assignmentsService: AssignmentsService,
-   private matieresService: MatieresService,
+   private matieresService: MatiereService,
    private usersService: UsersService,
    private route: ActivatedRoute,
    private router: Router,

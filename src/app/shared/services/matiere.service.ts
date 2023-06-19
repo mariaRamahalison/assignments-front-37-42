@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  map } from 'rxjs';
+import {  Observable, map } from 'rxjs';
 import { environment, options } from '../utils/utils';
 import { Matiere } from '../model/matiere.model';
 
@@ -16,5 +16,8 @@ export class MatiereService {
     return this.http.post(`${this.uri_api}/matiere`, matiere, this.header);
   }
 
+  getMatieres():Observable<any> {
+    return this.http.get<Matiere[]>(`${this.uri_api}/matiere`);
+  }
 
 }

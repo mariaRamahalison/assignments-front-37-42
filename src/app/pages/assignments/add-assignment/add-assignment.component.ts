@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { FormBuilder,  Validators } from '@angular/forms';
 import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Matiere } from 'src/app/shared/model/matiere.model';
-import { MatieresService } from 'src/app/shared/services/matieres.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { User } from 'src/app/shared/model/user.dto';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersService } from 'src/app/shared/services/users.service';
+import { MatiereService } from 'src/app/shared/services/matiere.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -32,7 +32,7 @@ export class AddAssignmentComponent {
 
   constructor(
     private assignmentsService : AssignmentsService,
-    private matieresService: MatieresService,
+    private matieresService: MatiereService,
     private router:Router,
     private _formBuilder: FormBuilder,
     private _snackBar: MatSnackBar,
