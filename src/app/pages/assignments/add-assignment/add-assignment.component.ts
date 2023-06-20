@@ -22,10 +22,10 @@ import { MatiereService } from 'src/app/shared/services/matiere.service';
 })
 export class AddAssignmentComponent {
 
-  auteurFormGroup = this._formBuilder.group({ auteur: [''], });
-  nomFormGroup = this._formBuilder.group({ nom: ['', Validators.required], });
-  matiereFormGroup = this._formBuilder.group({ matiere: ['', Validators.required], });
-  dateRenduFormGroup = this._formBuilder.group({ dateRendu: ['', Validators.required],});
+  auteurFormGroup = this._formBuilder.group({ auteur: [''] });
+  nomFormGroup = this._formBuilder.group({ nom: ['', Validators.required] });
+  matiereFormGroup = this._formBuilder.group({ matiere: ['', Validators.required] });
+  dateRenduFormGroup = this._formBuilder.group({ dateRendu: ['', Validators.required]});
   user!: User ; 
   matieres:Matiere[] = [];
   auteurs : User[] = [];
@@ -41,7 +41,8 @@ export class AddAssignmentComponent {
 
   ngOnInit(): void {
     this.user= JSON.parse(localStorage.getItem('user')!);
-    if(!this.isAdmin()) this.auteurFormGroup.controls.auteur.setValue(this.user._id);
+    if(!this.isAdmin()) this.auteurFormGroup.controls.auteur.setValue(this.user._id)
+    else this.auteurFormGroup = this._formBuilder.group({ auteur: ['', Validators.required] });
     this.getMatiere();
     this.getAuteurs();
   }
@@ -68,7 +69,8 @@ export class AddAssignmentComponent {
   saveAssignment() {
     if(this.nomFormGroup.invalid ||
       this.matiereFormGroup.invalid ||
-      this.dateRenduFormGroup.invalid) return ;
+      this.dateRenduFormGroup.invalid ||
+      (this.isAdmin() && this.auteurFormGroup.invalid )) return ;
 
     const nouvelAssignment = {
       nom : this.nomFormGroup.controls.nom.value ,

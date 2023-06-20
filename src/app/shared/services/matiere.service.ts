@@ -17,7 +17,7 @@ export class MatiereService {
   }
 
   getMatieres():Observable<any> {
-    return this.http.get<Matiere[]>(`${this.uri_api}/matiere`);
+    return this.http.get<Matiere[]>(`${this.uri_api}/matiere`,this.header);
   }
 
   getMatiereProf(id):Observable<any> {

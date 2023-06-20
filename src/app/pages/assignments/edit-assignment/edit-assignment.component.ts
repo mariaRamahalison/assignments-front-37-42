@@ -25,11 +25,11 @@ export class EditAssignmentComponent implements OnInit {
  assignment!: Assignment ;
  // associées aux champs du formulaire
 
- firstFormGroup = this._formBuilder.group({nom: ['', Validators.required],});
- secondFormGroup = this._formBuilder.group({matiere: ['', Validators.required],});
- thirdFormGroup = this._formBuilder.group({dateRendu: ["", Validators.required],});
- fourthFormGroup= this._formBuilder.group({auteur: ['', Validators.required], });
- fifthFormGroup= this._formBuilder.group({remarque: ['']});
+ nomFormGroup = this._formBuilder.group({nom: ['', Validators.required]});
+ matiereFormGroup = this._formBuilder.group({matiere: ['', Validators.required]});
+ dateRenduFormGroup = this._formBuilder.group({dateRendu: ["", Validators.required]});
+ auteurFormGroup= this._formBuilder.group({auteur: ['', Validators.required]});
+ remarqueFormGroup= this._formBuilder.group({remarque: ['']});
 
   matieres:Matiere[] = [];
   auteurs : User[] = [];
@@ -56,11 +56,11 @@ export class EditAssignmentComponent implements OnInit {
   .subscribe((assignment: Assignment | undefined) => {
     if (!assignment) return; // erreur ao am page home plus modal ana alerte kely oe tsy miexiste le izy 
     this.assignment = assignment;
-    this.firstFormGroup.controls.nom.setValue(this.assignment.nom);
-    this.secondFormGroup.controls.matiere.setValue(this.assignment.matiere);
-    this.thirdFormGroup.controls.dateRendu.setValue(new Date(this.assignment.dateRendu).toISOString());
-    this.fourthFormGroup.controls.auteur.setValue(this.assignment.auteur);
-    this.fifthFormGroup.controls.remarque.setValue(this.assignment.remarque);
+    this.nomFormGroup.controls.nom.setValue(this.assignment.nom);
+    this.matiereFormGroup.controls.matiere.setValue(this.assignment.matiere);
+    this.dateRenduFormGroup.controls.dateRendu.setValue(new Date(this.assignment.dateRendu).toISOString());
+    this.auteurFormGroup.controls.auteur.setValue(this.assignment.auteur);
+    this.remarqueFormGroup.controls.remarque.setValue(this.assignment.remarque);
   });
 }
 
@@ -81,18 +81,18 @@ getAuteurs(){
 }
 
 editAssignment(){
-  if(this.firstFormGroup.invalid ||
-    this.secondFormGroup.invalid ||
-    this.thirdFormGroup.invalid ||
-    this.fourthFormGroup.invalid ) return ;
+  if(this.nomFormGroup.invalid ||
+    this.matiereFormGroup.invalid ||
+    this.dateRenduFormGroup.invalid ||
+    this.auteurFormGroup.invalid ) return ;
 
     const editAssignment = {
       _id : this.assignment._id,
-      nom : this.firstFormGroup.controls.nom.value ,
-      matiere : this.secondFormGroup.controls.matiere.value,
-      dateRendu : new Date(this.thirdFormGroup.controls.dateRendu.value),
-      auteur : this.fourthFormGroup.controls.auteur.value,
-      remarque : this.fifthFormGroup.controls.remarque.value
+      nom : this.nomFormGroup.controls.nom.value ,
+      matiere : this.matiereFormGroup.controls.matiere.value,
+      dateRendu : new Date(this.dateRenduFormGroup.controls.dateRendu.value),
+      auteur : this.auteurFormGroup.controls.auteur.value,
+      remarque : this.remarqueFormGroup.controls.remarque.value
     };
 
     this.assignmentsService.updateAssignment(editAssignment)

@@ -1,16 +1,17 @@
 
-<div class="col-md-6 mb-2">
-  <div class="mt-3">
-    <p> Nb assignments total {{totalDocs}}, par page {{limit}}, nbPages {{totalPages}}</p>
-    <p> Régler nb par page : <input type="range"  min=1 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()" /> {{limit}}
-    </p>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-outline-secondary" (click)="premierePage()" [disabled]="!hasPrevPage">Première page</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="pagePrecedente()" [disabled]="!hasPrevPage">Page Précédente</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page Suivante</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="dernierePage()" [disabled]="!hasNextPage">Derniere page</button>
-      </div>
-  </div>
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Assignements /</span> Notation</h4><div class="col-md-6 mb-2">
+<div class="mt-3">
+  <p> Nb assignments total {{totalDocs}}, par page {{limit}}, nbPages {{totalPages}}</p>
+  <p> Régler nb par page : <input type="range"  min=1 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()" /> {{limit}}
+  </p>
+    <div class="btn-group" role="group" aria-label="Basic example">
+      <button type="button" class="btn btn-outline-secondary" (click)="premierePage()" [disabled]="!hasPrevPage">Première page</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="pagePrecedente()" [disabled]="!hasPrevPage">Page Précédente</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page Suivante</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="dernierePage()" [disabled]="!hasNextPage">Derniere page</button>
+    </div>
+</div>
 </div>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
@@ -22,7 +23,7 @@
                  [pageIndex]="page"
   >
   </mat-paginator>
-  
+
 <div cdkDropListGroup>
   <div class="example-container">
     <h2>To do</h2>

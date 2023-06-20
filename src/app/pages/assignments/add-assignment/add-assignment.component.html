@@ -4,11 +4,10 @@
       <h5 class="card-header">Ajouter un assignment</h5>
       <div class="card-body">
           <mat-stepper orientation="vertical" linear="false" #stepper>
-            <mat-step [stepControl]="auteurFormGroup" errorMessage = "Le nom est requis" *ngIf="isAdmin()">
+            <mat-step [stepControl]="auteurFormGroup" errorMessage = "L'auteur est requis" *ngIf="isAdmin()">
               <form [formGroup]="auteurFormGroup">
                 <ng-template matStepLabel>Remplissez l'auteur</ng-template>
                 <mat-form-field appearance="outline">
-                  <mat-label>Auteur</mat-label>
                   <mat-select formControlName="auteur">
                     <mat-option *ngFor="let item of auteurs" [value]="item._id">{{item.nom}} {{item.prenom}}</mat-option>
                   </mat-select>
@@ -23,7 +22,6 @@
               <form [formGroup]="nomFormGroup">
                 <ng-template matStepLabel>Remplissez le nom du devoir</ng-template>
                 <mat-form-field appearance="outline">
-                  <mat-label>Nom du devoir</mat-label>
                   <input matInput formControlName="nom" required>
                 </mat-form-field>
                 <div>
@@ -35,7 +33,6 @@
               <form [formGroup]="matiereFormGroup">
                 <ng-template matStepLabel>Remplissez la matière</ng-template>
                 <mat-form-field appearance="outline">
-                    <mat-label>Matière</mat-label>
                     <mat-select formControlName="matiere">
                       <mat-option *ngFor="let item of matieres" [value]="item._id">{{item.nom}}</mat-option>
                     </mat-select>
@@ -50,7 +47,6 @@
                 <form [formGroup]="dateRenduFormGroup" >
                   <ng-template matStepLabel>Remplissez la date de rendu</ng-template>
                   <mat-form-field appearance="outline">
-                    <mat-label>Date de rendu</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="dateRendu" name="date" required>
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
@@ -63,8 +59,7 @@
                 </form>
               </mat-step>
             <mat-step>
-              <ng-template matStepLabel>Fait</ng-template>
-              <p>Ajouter de l'assignement.</p>
+              <ng-template matStepLabel>Ajouter de l'assignement</ng-template>
               <div>
                 <button mat-button matStepperPrevious>Precedent</button>
                 <button mat-button (click)="saveAssignment()">Enregistrer</button>
