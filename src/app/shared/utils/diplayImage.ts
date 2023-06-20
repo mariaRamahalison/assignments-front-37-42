@@ -5,7 +5,7 @@ export const getPhotoUtil = ((name)=>{
         if(name !== ""){
             resolve(`${uri_api}/photo/${name}`);
           }else{
-            return(`${uri_api}/photo/1687298881022-496619892.jpg`);
+            resolve(`${uri_api}/photo/1687298881022-496619892.jpg`);
           }
     });    
 });
