@@ -4,7 +4,7 @@
     <div class="card-body">
       <div class="d-flex align-items-start align-items-sm-center gap-4">
         <img
-          src="../assets/img/avatars/1.png"
+          [src]="imageURL"
           alt="user-avatar"
           class="d-block rounded"
           height="100"
@@ -24,7 +24,7 @@
               accept="image/*"
             />
           </label>
-          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" (change)="reset()">
+          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" (click)="reset()">
             <i class="bx bx-reset d-block d-sm-none"></i>
             <span class="d-none d-sm-block">Reset</span>
           </button>
@@ -35,7 +35,7 @@
     </div>
     <hr class="my-0" />
     <div class="card-body">
-      <form id="formAccountSettings" [formGroup]="formGroup" (ngSubmit)="onSubmit()" enctype='multipart/form-data'>
+      <form id="formAccountSettings" [formGroup]="formGroup" enctype='multipart/form-data'>
         <div class="row">
           <div class="mb-3 col-md-6">
             <label for="firstName" class="form-label">Nom</label>
@@ -64,7 +64,6 @@
               type="text"
               id="email"
               name="email"
-              value="john.doe@example.com"
               formControlName="email"
             />
             <mat-error *ngIf="formGroup.get('email')?.hasError('email') && !formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
@@ -74,25 +73,44 @@
             Email <strong>requis</strong>
             </mat-error>
           </div>
-          <div class="mb-3 col-md-6" *ngIf="isProf(userConnected)">
-            <label for="organization" class="form-label">Matière</label>
-            <input
-              type="text"
-              class="form-control"
-              id="organization"
-              name="organization"
-              disabled
-              [value]="matiere?.nom"
-            />
-            
-            <button (click)="changeMatiere()" style="float: right;margin-top: 5px; text-align: center;" class="btn btn-danger me-2">Changer de matière</button>
-          </div>
         </div>
         <div class="mt-2">
-          <button type="submit" class="btn btn-primary me-2">Sauvegarder</button>
-          <button type="reset" class="btn btn-outline-secondary">Annuler</button>
+          <button type="submit" (click)="onSubmit()" class="btn btn-primary me-2">Sauvegarder</button>
+          <button  (click)="setDefaultValue()" class="btn btn-outline-secondary">Annuler</button>
         </div>
       </form>
     </div>
     <!-- /Account -->
+    <hr class="my-0" />
+    <div class="card-body">
+      <div class="d-flex align-items-start align-items-sm-center gap-4">
+        <img
+          [src]="imageURL"
+          alt="user-avatar"
+          class="d-block rounded"
+          height="100"
+          width="100"
+          id="uploadedAvatar"
+        />
+        <div class="row">
+          <div class="mb-4 col-md-6">
+            <div  *ngIf="isProf(userConnected)">
+              <label for="organization" class="form-label">Matière</label>
+              <input
+                type="text"
+                class="form-control"
+                id="organization"
+                name="organization"
+                disabled
+                [value]="matiere?.nom"
+              />
+            </div>
+          </div>
+          <div class="mb-3 col-md-6">
+            <button (click)="changeMatiere()"  class="btn btn-danger">Changer de matière</button>
+          </div>
+        </div>   
+      </div>
+    </div>
+    
   </div>

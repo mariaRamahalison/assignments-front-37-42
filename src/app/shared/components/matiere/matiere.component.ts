@@ -15,6 +15,7 @@ import { FileService } from '../../services/file.service';
 export class MatiereComponent implements OnInit{
   formGroup!: FormGroup;
   photo: any;
+  matiereUp: any;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<any>,
   private fb: FormBuilder, 
@@ -29,14 +30,17 @@ export class MatiereComponent implements OnInit{
     this.formGroup = this.fb.group({
       nom: [null, [Validators.required]],
     });
+    if(this.data.update && this.data.data) { 
+      this.formGroup.get('nom').patchValue(this.data.data.nom);
+    }
   }
 
   async submitForm(){
     if(this.formGroup.valid){
-      if(!this.data.update) {
-        this.ajoutMatiere();
+      if(this.data.update) {
+        this.updateMatiere();
       }else{
-
+        this.ajoutMatiere();
       }
     }else{
       Object.values(this.formGroup.controls).forEach((control) => {
@@ -49,7 +53,8 @@ export class MatiereComponent implements OnInit{
   }
 
   closeDialog() {
-    this.dialogRef.close('Pizza!');
+    this.dialogRef.close();
+    this.formGroup.reset();
   }
 
   onFileSelected(event: Event){
@@ -63,27 +68,27 @@ export class MatiereComponent implements OnInit{
     this.photo = null;
   }
 
-  async ajoutMatiere(){
+  async uplaodPhoto(){
     let illu = '';
-      if(this.photo){
-        if(this.photo){
-          const fileupload = await lastValueFrom(this.fileService.uploadFile(this.photo)).catch((error: any)=>{
-            this._snackBar.open(error.error, "OK", {
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });
-        });
-          illu = fileupload.message.name;
-        }
-      }
+    if(this.photo){
+      const fileupload = await lastValueFrom(this.fileService.uploadFile(this.photo)).catch((error: any)=>{
+        this._snackBar.open(error.error, "OK", {
+        duration: 3000,
+        panelClass: ['red-snackbar'],
+      });
+    });
+      illu = fileupload.message.name;
+    }
+    return illu;
+  }
+
+  async ajoutMatiere(){
       const matiere = this.formGroup?.value;
-      matiere.photo = illu;
+      matiere.photo = await this.uplaodPhoto();
       matiere.idProf = this.data.data;
-      
       await lastValueFrom(this.matiereService.saveMatiere(matiere)).then(()=>{
         this.router.navigate(['/']);
       }).catch((error: any)=>{
-
         this._snackBar.open(error.error, "OK", {
           duration: 3000,
           panelClass: ['red-snackbar'],
@@ -92,30 +97,20 @@ export class MatiereComponent implements OnInit{
     }
 
     async updateMatiere(){
-      let illu = '';
-      if(this.photo){
-        if(this.photo){
-          const fileupload = await lastValueFrom(this.fileService.uploadFile(this.photo)).catch((error: any)=>{
-            this._snackBar.open(error.error, "OK", {
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });
-        });
-          illu = fileupload.message.name;
-        }
-      }
+      const illu = await this.uplaodPhoto();
       const matiere = this.formGroup?.value;
-      matiere.photo = illu;
-      matiere.idProf = this.data.data;
-      
-      await lastValueFrom(this.matiereService.saveMatiere(matiere)).then(()=>{
-        this.router.navigate(['/']);
+      matiere.photo = illu !== '' ? illu : '';
+      matiere.idProf = this.data.prof;  
+      this.matiereUp = await lastValueFrom(this.matiereService.updateMatiere(this.data.data._id,matiere))
+      .then(()=>{
+        this._snackBar.open("Matiere modifie", "OK", {
+          duration: 3000,
+        });
       }).catch((error: any)=>{
-
         this._snackBar.open(error.error, "OK", {
           duration: 3000,
           panelClass: ['red-snackbar'],
         });
-      }).finally(()=>{this.closeDialog()});
+      });
     }
 }
