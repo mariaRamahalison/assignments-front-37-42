@@ -1,10 +1,10 @@
 <div class="card mb-4">
-    <h5 class="card-header">Profile Details</h5>
+    <h5 class="card-header">Détails profil</h5>
     <!-- Account -->
     <div class="card-body">
       <div class="d-flex align-items-start align-items-sm-center gap-4">
         <img
-          src="../assets/img/avatars/1.png"
+          [src]="imageURL"
           alt="user-avatar"
           class="d-block rounded"
           height="100"
@@ -12,44 +12,50 @@
           id="uploadedAvatar"
         />
         <div class="button-wrapper">
-          <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-            <span class="d-none d-sm-block">Upload new photo</span>
+          <label for="upload" class="btn btn-info me-2 mb-4" tabindex="0">
+            <span class="d-none d-sm-block">Changer de photo</span>
             <i class="bx bx-upload d-block d-sm-none"></i>
             <input
               type="file"
               id="upload"
+              (change)="onFileSelected($event)"
               class="account-file-input"
               hidden
-              accept="image/png, image/jpeg"
+              accept="image/*"
             />
           </label>
-          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+          <button type="button" class="btn btn-outline-secondary account-image-reset mb-4" (click)="reset()">
             <i class="bx bx-reset d-block d-sm-none"></i>
             <span class="d-none d-sm-block">Reset</span>
           </button>
 
-          <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+          <p class="text-muted mb-0">Prise en charge JPG, GIF or PNG. Taille Max 5MB</p>
         </div>
       </div>
     </div>
     <hr class="my-0" />
     <div class="card-body">
-      <form id="formAccountSettings" method="POST" onsubmit="return false">
+      <form id="formAccountSettings" [formGroup]="formGroup" enctype='multipart/form-data'>
         <div class="row">
           <div class="mb-3 col-md-6">
-            <label for="firstName" class="form-label">First Name</label>
+            <label for="firstName" class="form-label">Nom</label>
             <input
+              formControlName="nom"
               class="form-control"
               type="text"
               id="firstName"
               name="firstName"
-              value="John"
-              autofocus
             />
+            <mat-error *ngIf="formGroup.get('nom')?.hasError('required') && formGroup.get('nom')?.touched">
+                Nom <strong>requis</strong>
+            </mat-error>
           </div>
           <div class="mb-3 col-md-6">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
+            <label for="lastName" class="form-label">Prénom</label>
+            <input class="form-control" type="text" name="lastName" id="lastName" formControlName="prenom"/>
+            <mat-error *ngIf="formGroup.get('prenom')?.hasError('required') && formGroup.get('prenom')?.touched">
+                Prénom <strong>requis</strong>
+            </mat-error>
           </div>
           <div class="mb-3 col-md-6">
             <label for="email" class="form-label">E-mail</label>
@@ -58,26 +64,53 @@
               type="text"
               id="email"
               name="email"
-              value="john.doe@example.com"
-              placeholder="john.doe@example.com"
+              formControlName="email"
             />
-          </div>
-          <div class="mb-3 col-md-6">
-            <label for="organization" class="form-label">Organization</label>
-            <input
-              type="text"
-              class="form-control"
-              id="organization"
-              name="organization"
-              value="ThemeSelection"
-            />
+            <mat-error *ngIf="formGroup.get('email')?.hasError('email') && !formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
+                Veuillez entré un email valide
+            </mat-error>
+            <mat-error *ngIf="formGroup.get('email')?.hasError('required') && formGroup.get('email')?.touched">
+            Email <strong>requis</strong>
+            </mat-error>
           </div>
         </div>
         <div class="mt-2">
-          <button type="submit" class="btn btn-primary me-2">Save changes</button>
-          <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+          <button type="submit" (click)="onSubmit()" class="btn btn-primary me-2">Sauvegarder</button>
+          <button  (click)="setDefaultValue()" class="btn btn-outline-secondary">Annuler</button>
         </div>
       </form>
     </div>
     <!-- /Account -->
+    <hr class="my-0" />
+    <div class="card-body">
+      <div class="d-flex align-items-start align-items-sm-center gap-4">
+        <img
+          [src]="matiereImage"
+          alt="user-avatar"
+          class="d-block rounded"
+          height="100"
+          width="100"
+          id="uploadedAvatar"
+        />
+        <div class="row">
+          <label for="organization" class="form-label">Matière</label>
+          <div class="mb-4 col-md-6" style="margin-top: 15px;">
+            <div  *ngIf="isProf(userConnected)">
+              <input
+                type="text"
+                class="form-control"
+                id="organization"
+                name="organization"
+                disabled
+                [value]="matiere?.nom"
+              />
+            </div>
+          </div>
+          <div class="mb-3 col-md-6" style="margin-top: 15px;">
+            <button (click)="changeMatiere()"  class="btn btn-danger">Modifier matière</button>
+          </div>
+        </div>   
+      </div>
+    </div>
+    
   </div>

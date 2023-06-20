@@ -13,11 +13,23 @@ export class MatiereService {
   constructor(private http: HttpClient) { }
 
   saveMatiere(matiere: Matiere){
-    return this.http.post(`${this.uri_api}/matiere`, matiere, this.header);
+    return this.http.post(`${this.uri_api}/matiere`, matiere);
   }
 
   getMatieres():Observable<any> {
     return this.http.get<Matiere[]>(`${this.uri_api}/matiere`);
+  }
+
+  getMatiereProf(id):Observable<any> {
+    return this.http.get<Matiere>(`${this.uri_api}/matiere/prof/${id}`, this.header);
+  }
+
+  updateMatiere(id, matiere):Observable<any> {
+    return this.http.put<Matiere>(`${this.uri_api}/matiere/${id}`, matiere, this.header).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );;
   }
 
 }
