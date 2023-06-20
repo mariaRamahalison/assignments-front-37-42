@@ -15,7 +15,7 @@ import { FileService } from '../../services/file.service';
 export class MatiereComponent implements OnInit{
   formGroup!: FormGroup;
   photo: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: String,
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<any>,
   private fb: FormBuilder, 
   private _snackBar: MatSnackBar,
@@ -33,37 +33,18 @@ export class MatiereComponent implements OnInit{
 
   async submitForm(){
     if(this.formGroup.valid){
-        let illu = '';
-      if(this.photo){
-        if(this.photo){
-          const fileupload = await lastValueFrom(this.fileService.uploadFile(this.photo)).catch((error: any)=>{
-            this._snackBar.open(error.error, "OK", {
-            duration: 3000,
-            panelClass: ['red-snackbar'],
-          });
-        });
-          illu = fileupload.message.name;
-        }
-      }
-      const matiere = this.formGroup?.value;
-      matiere.photo = illu;
-      matiere.idProf = this.data;
-      
-      await lastValueFrom(this.matiereService.saveMatiere(matiere)).then(()=>{
-        this.router.navigate(['/']);
-      }).catch((error: any)=>{
-        this._snackBar.open(error.error, "OK", {
-          duration: 3000,
-          panelClass: ['red-snackbar'],
-        });
-      });
+      if(!this.data.update) {
+        this.ajoutMatiere();
       }else{
-        Object.values(this.formGroup.controls).forEach((control) => {
-          if (control.invalid) {
-            control.markAsDirty();
-            control.updateValueAndValidity({ onlySelf: true });
-          }
-        });
+
+      }
+    }else{
+      Object.values(this.formGroup.controls).forEach((control) => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({ onlySelf: true });
+        }
+      });
     }
   }
 
@@ -77,4 +58,64 @@ export class MatiereComponent implements OnInit{
       this.photo=file;
     }
   }
+  
+  reset(){
+    this.photo = null;
+  }
+
+  async ajoutMatiere(){
+    let illu = '';
+      if(this.photo){
+        if(this.photo){
+          const fileupload = await lastValueFrom(this.fileService.uploadFile(this.photo)).catch((error: any)=>{
+            this._snackBar.open(error.error, "OK", {
+            duration: 3000,
+            panelClass: ['red-snackbar'],
+          });
+        });
+          illu = fileupload.message.name;
+        }
+      }
+      const matiere = this.formGroup?.value;
+      matiere.photo = illu;
+      matiere.idProf = this.data.data;
+      
+      await lastValueFrom(this.matiereService.saveMatiere(matiere)).then(()=>{
+        this.router.navigate(['/']);
+      }).catch((error: any)=>{
+
+        this._snackBar.open(error.error, "OK", {
+          duration: 3000,
+          panelClass: ['red-snackbar'],
+        });
+      }).finally(()=>{this.closeDialog()});
+    }
+
+    async updateMatiere(){
+      let illu = '';
+      if(this.photo){
+        if(this.photo){
+          const fileupload = await lastValueFrom(this.fileService.uploadFile(this.photo)).catch((error: any)=>{
+            this._snackBar.open(error.error, "OK", {
+            duration: 3000,
+            panelClass: ['red-snackbar'],
+          });
+        });
+          illu = fileupload.message.name;
+        }
+      }
+      const matiere = this.formGroup?.value;
+      matiere.photo = illu;
+      matiere.idProf = this.data.data;
+      
+      await lastValueFrom(this.matiereService.saveMatiere(matiere)).then(()=>{
+        this.router.navigate(['/']);
+      }).catch((error: any)=>{
+
+        this._snackBar.open(error.error, "OK", {
+          duration: 3000,
+          panelClass: ['red-snackbar'],
+        });
+      }).finally(()=>{this.closeDialog()});
+    }
 }

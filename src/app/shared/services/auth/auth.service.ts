@@ -3,7 +3,7 @@ import { User } from '../../model/user.dto';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { environment } from '../../utils/utils';
+import { environment, options } from '../../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +25,14 @@ export class AuthService {
 
   signup(user: User): Observable<any> {
     return this.http.post(`${this.uri_api}/user`, user).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );
+  }
+
+  update(id, user: User): Observable<any> {
+    return this.http.put(`${this.uri_api}/user/${id}`, user, options).pipe(
       map((response: any) => {
         return response;
       })

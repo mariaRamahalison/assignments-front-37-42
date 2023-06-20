@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
 
   getPhoto(){
     if(this.userConnected.photo !== ""){
-      return `${this.uri_api}/photo/${this.userConnected.prenom}`
+      return `${this.uri_api}/photo/${this.userConnected.photo}`
     }else{
       return '../assets/img/avatars/1.png';
     }

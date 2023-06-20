@@ -61,7 +61,7 @@ export class RegistrationComponent implements OnInit {
       }
       if(res.user.type === "prof"){
         const dialogRef = this.dialog.open(MatiereComponent, {
-          disableClose:true,data: res.user._id
+          disableClose:true,data: {update:false, data: res.user._id} 
          });
       } else {
         this.router.navigate(['/']);
@@ -72,7 +72,6 @@ export class RegistrationComponent implements OnInit {
         panelClass: ['red-snackbar'],
       });
     });
-    ;
     }else{
       Object.values(this.formGroup.controls).forEach((control) => {
         if (control.invalid) {
