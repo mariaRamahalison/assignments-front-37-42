@@ -1,8 +1,8 @@
 import { Component, OnInit , Inject} from '@angular/core';
-import { Assignment } from '../../model/assignment.model';
+import { Assignment } from '../../../shared/model/assignment.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { AssignmentsService } from '../../services/assignments.service';
+import { AssignmentsService } from '../../../shared/services/assignments.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({

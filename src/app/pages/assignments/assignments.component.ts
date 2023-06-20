@@ -4,7 +4,7 @@ import { AssignmentsService } from 'src/app/shared/services/assignments.service'
 import { User } from 'src/app/shared/model/user.dto';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AssignmentDetailComponent } from 'src/app/shared/components/assignment-detail/assignment-detail.component';
+import { AssignmentDetailComponent } from 'src/app/pages/assignments/assignment-detail/assignment-detail.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

@@ -9,7 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from 'src/app/shared/model/user.dto';
 import { Assignment } from 'src/app/shared/model/assignment.model';
 import { MatDialog, } from '@angular/material/dialog';
-import { AssignmentDetailComponent } from 'src/app/shared/components/assignment-detail/assignment-detail.component';
+import { AssignmentDetailComponent } from 'src/app/pages/assignments/assignment-detail/assignment-detail.component';
 
 @Component({
   selector: 'app-assignement-notation',
