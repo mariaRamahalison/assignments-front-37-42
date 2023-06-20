@@ -6,8 +6,10 @@ import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { MatiereComponent } from 'src/app/shared/components/matiere/matiere.component';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { EventBusService } from 'src/app/shared/services/event.bus.service';
 import { FileService } from 'src/app/shared/services/file.service';
 import { MatiereService } from 'src/app/shared/services/matiere.service';
+import { getPhotoUtil } from 'src/app/shared/utils/diplayImage';
 import { environment } from 'src/app/shared/utils/utils';
 
 @Component({
@@ -19,6 +21,7 @@ export class ProfilComponent implements OnInit{
   formGroup!: FormGroup;
   pdp: any;
   imageURL: string;
+  matiereImage: String;
   userConnected: any;
   matiere: any;
   uri_api = environment.api_url;
@@ -27,7 +30,7 @@ export class ProfilComponent implements OnInit{
     private authService: AuthService,
     private matiereService: MatiereService,
     private _snackBar: MatSnackBar,
-    private router: Router,
+    private eventBusService: EventBusService,
     public dialog: MatDialog){
 
   }
@@ -41,30 +44,27 @@ export class ProfilComponent implements OnInit{
     const user = localStorage.getItem('user');
     if(user) {
       this.userConnected = JSON.parse(user);
-      this.setDefaultValue();
+      await this.setDefaultValue();
       if(this.isProf(this.userConnected)){
         this.matiere = await lastValueFrom(this.matiereService.getMatiereProf(this.userConnected._id));
+        await this.getMatierePhoto();
       }
     }
   }
 
-  setDefaultValue(){
+  async setDefaultValue(){
     this.formGroup.get('nom').setValue(this.userConnected.nom);
     this.formGroup.get('prenom').setValue(this.userConnected.prenom);
     this.formGroup.get('email').setValue(this.userConnected.email);
-    this.getPhoto();
+    await this.getPhoto();
   }
 
   isProf(user){
     return user.type === "prof"
   }
 
-  getPhoto(){
-    if(this.userConnected.photo !== ""){
-      this.imageURL = `${this.uri_api}/photo/${this.userConnected.photo}`
-    }else{
-      this.imageURL = '../assets/img/avatars/1.png';
-    }
+  async getPhoto(){
+    this.imageURL = await getPhotoUtil(this.userConnected.photo);
   }
 
   async onSubmit(){
@@ -77,7 +77,7 @@ export class ProfilComponent implements OnInit{
         duration: 3000,
         panelClass: ['red-snackbar'],
       });
-    });;
+    });
       photo = fileupload.message.name;
       userIn.photo = photo;
     }
@@ -88,6 +88,7 @@ export class ProfilComponent implements OnInit{
           duration: 3000,
           panelClass: ['red-snackbar'],
         });
+        this.eventBusService.emitEvent(res);
       }
     
     }).catch((error: any)=>{
@@ -111,18 +112,22 @@ export class ProfilComponent implements OnInit{
     }
   }
 
-  reset(){    
+  async reset(){    
     this.pdp = null;
-    this.getPhoto();
+    await this.getPhoto();
   }
 
-  changeMatiere(){
+ async changeMatiere(){
     const dialogRef = this.dialog.open(MatiereComponent, {
       disableClose:true, data: {update:true, data: this.matiere, prof: this.userConnected._id}
      });
-     dialogRef.afterClosed().subscribe(result => {
+     await dialogRef.afterClosed().subscribe(async (result) => {
       this.matiere = result;
+      await this.getMatierePhoto();
     });
   }
 
+  async getMatierePhoto(){
+    this.matiereImage = await getPhotoUtil(this.matiere.photo);
+  }
 }

@@ -38,9 +38,9 @@ export class MatiereComponent implements OnInit{
   async submitForm(){
     if(this.formGroup.valid){
       if(this.data.update) {
-        this.updateMatiere();
+        await this.updateMatiere();
       }else{
-        this.ajoutMatiere();
+        await this.ajoutMatiere();
       }
     }else{
       Object.values(this.formGroup.controls).forEach((control) => {
@@ -52,8 +52,8 @@ export class MatiereComponent implements OnInit{
     }
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(matiere:any = null) {
+    this.dialogRef.close(matiere);
     this.formGroup.reset();
   }
 
@@ -99,10 +99,11 @@ export class MatiereComponent implements OnInit{
     async updateMatiere(){
       const illu = await this.uplaodPhoto();
       const matiere = this.formGroup?.value;
-      matiere.photo = illu !== '' ? illu : '';
+      matiere.photo = illu !== '' ? illu : matiere.photo;
       matiere.idProf = this.data.prof;  
-      this.matiereUp = await lastValueFrom(this.matiereService.updateMatiere(this.data.data._id,matiere))
-      .then(()=>{
+      await lastValueFrom(this.matiereService.updateMatiere(this.data.data._id,matiere))
+      .then(async (result)=>{
+        this.matiereUp = result;
         this._snackBar.open("Matiere modifie", "OK", {
           duration: 3000,
         });
@@ -111,6 +112,8 @@ export class MatiereComponent implements OnInit{
           duration: 3000,
           panelClass: ['red-snackbar'],
         });
+      }).finally(()=>{
+        this.closeDialog(this.matiereUp)
       });
     }
 }

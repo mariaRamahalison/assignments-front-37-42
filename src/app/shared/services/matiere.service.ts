@@ -25,7 +25,11 @@ export class MatiereService {
   }
 
   updateMatiere(id, matiere):Observable<any> {
-    return this.http.put<Matiere>(`${this.uri_api}/matiere/${id}`, matiere, this.header);
+    return this.http.put<Matiere>(`${this.uri_api}/matiere/${id}`, matiere, this.header).pipe(
+      map((response: any) => {
+        return response;
+      })
+    );;
   }
 
 }

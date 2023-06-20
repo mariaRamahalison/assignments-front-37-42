@@ -85,7 +85,7 @@
     <div class="card-body">
       <div class="d-flex align-items-start align-items-sm-center gap-4">
         <img
-          [src]="imageURL"
+          [src]="matiereImage"
           alt="user-avatar"
           class="d-block rounded"
           height="100"
@@ -93,9 +93,9 @@
           id="uploadedAvatar"
         />
         <div class="row">
-          <div class="mb-4 col-md-6">
+          <label for="organization" class="form-label">Matière</label>
+          <div class="mb-4 col-md-6" style="margin-top: 15px;">
             <div  *ngIf="isProf(userConnected)">
-              <label for="organization" class="form-label">Matière</label>
               <input
                 type="text"
                 class="form-control"
@@ -106,8 +106,8 @@
               />
             </div>
           </div>
-          <div class="mb-3 col-md-6">
-            <button (click)="changeMatiere()"  class="btn btn-danger">Changer de matière</button>
+          <div class="mb-3 col-md-6" style="margin-top: 15px;">
+            <button (click)="changeMatiere()"  class="btn btn-danger">Modifier matière</button>
           </div>
         </div>   
       </div>
