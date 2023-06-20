@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import {  FormBuilder, Validators } from '@angular/forms';
 import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Assignment } from 'src/app/shared/model/assignment.model';
 import { Matiere } from 'src/app/shared/model/matiere.model';
@@ -30,9 +30,10 @@ export class EditAssignmentComponent implements OnInit {
  dateRenduFormGroup = this._formBuilder.group({dateRendu: ["", Validators.required]});
  auteurFormGroup= this._formBuilder.group({auteur: ['', Validators.required]});
  remarqueFormGroup= this._formBuilder.group({remarque: ['']});
-
+ noteFormGroup=this._formBuilder.group({note :[0,Validators.required]});
   matieres:Matiere[] = [];
   auteurs : User[] = [];
+
 
  constructor(
    private assignmentsService: AssignmentsService,
@@ -61,8 +62,10 @@ export class EditAssignmentComponent implements OnInit {
     this.dateRenduFormGroup.controls.dateRendu.setValue(new Date(this.assignment.dateRendu).toISOString());
     this.auteurFormGroup.controls.auteur.setValue(this.assignment.auteur);
     this.remarqueFormGroup.controls.remarque.setValue(this.assignment.remarque);
+    this.noteFormGroup.controls.note.setValue(this.assignment.note)
   });
 }
+
 
 
 
@@ -72,6 +75,8 @@ getMatiere(){
     this.matieres= res;
   });
 }
+
+
 
 getAuteurs(){
   this.usersService.getUsers("etudiant")
@@ -84,7 +89,15 @@ editAssignment(){
   if(this.nomFormGroup.invalid ||
     this.matiereFormGroup.invalid ||
     this.dateRenduFormGroup.invalid ||
-    this.auteurFormGroup.invalid ) return ;
+    this.auteurFormGroup.invalid || 
+    this.noteFormGroup.invalid) return 
+    if(this.noteFormGroup.controls.note.value<0 || this.noteFormGroup.controls.note.value>20 ) {
+      this._snackBar.open("La note doit etre comprise entre 0 à 20", "OK", {
+        duration: 3000,
+        panelClass: ['red-snackbar'],
+      }); return ;
+    }
+    
 
     const editAssignment = {
       _id : this.assignment._id,
@@ -92,7 +105,8 @@ editAssignment(){
       matiere : this.matiereFormGroup.controls.matiere.value,
       dateRendu : new Date(this.dateRenduFormGroup.controls.dateRendu.value),
       auteur : this.auteurFormGroup.controls.auteur.value,
-      remarque : this.remarqueFormGroup.controls.remarque.value
+      remarque : this.remarqueFormGroup.controls.remarque.value,
+      note : this.noteFormGroup.controls.note.value
     };
 
     this.assignmentsService.updateAssignment(editAssignment)

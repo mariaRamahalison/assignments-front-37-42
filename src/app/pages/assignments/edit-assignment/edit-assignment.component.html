@@ -5,7 +5,7 @@
     <div class="card-body">
         <mat-stepper orientation="vertical" linear="false" #stepper >
           <mat-step [stepControl]="nomFormGroup" errorMessage = "Le nom est requis">
-            <ng-template  matStepLabel > Remplissez votre nom </ng-template > 
+            <ng-template  matStepLabel >Remplissez le nom du devoir</ng-template > 
             <form [formGroup]="nomFormGroup" class="me-3">
               <ng-template matStepLabel>Edition du nom</ng-template>
               <mat-form-field appearance="outline">
@@ -71,14 +71,26 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Editer de l'assignment</ng-template>
-              <div>
-                <button mat-button matStepperPrevious>Precedent</button>
-                <button mat-button (click)="editAssignment()">Enregistrer</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-              </div>
+            <mat-step [stepControl]="noteFormGroup" errorMessage = "La note est requise">
+              <ng-template  matStepLabel >Remplissez la note du devoir</ng-template > 
+              <form [formGroup]="noteFormGroup" class="me-3">
+                <ng-template matStepLabel>Edition de la nom</ng-template>
+                <mat-form-field appearance="outline">
+                  <input type="number" matInput formControlName="note">
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperNext >Suivant</button>
+                </div>
+              </form>
             </mat-step>
+              <mat-step>
+                <ng-template matStepLabel>Editer de l'assignment</ng-template>
+                <div>
+                  <button mat-button matStepperPrevious>Precedent</button>
+                  <button mat-button (click)="editAssignment()">Enregistrer</button>
+                  <button mat-button (click)="stepper.reset()">Reset</button>
+                </div>
+              </mat-step>
         </mat-stepper>
       </div>
   </div>
