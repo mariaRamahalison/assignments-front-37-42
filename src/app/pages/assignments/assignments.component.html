@@ -42,7 +42,7 @@
               </mat-card-content>
               <img mat-card-image *ngIf="isEtudiant()" [src]="getPhotoIllu(item.matiere.idProf)" alt="Photo">
               <img mat-card-image *ngIf="isAdmin() || isProf()" [src]="getPhotoIllu(item.auteur)" alt="Photo">
-              <mat-card-actions>
+              <mat-card-actions style="margin-top: auto;">
                 <button mat-button class="card-link" (click)="detail(item)">Details</button>
                 <button mat-button *ngIf="isAdmin()" (click)="edit(item)">Edit</button>
                 <button mat-button *ngIf="isAdmin()" color="warn" (click)="delete(item)">Delete</button>
