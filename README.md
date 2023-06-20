@@ -41,39 +41,38 @@ Allez dans votre navigateur et accéder la page au port marqué dans le terminal
 
 ## Documentation 
 Ce projet est composé :
-```Page de login 
-    avec SnackBar Material pour l'affichage des messages d'erreurs 
+### Page de login 
+- SnackBar Material pour l'affichage des messages d'erreurs 
 
-```Page d'inscription :
-    avec upload photo de profil
-    avec SnackBar Material pour l'affichage des messages d'erreurs
+### Page d'inscription :
+- upload photo de profil
+- SnackBar Material pour l'affichage des messages d'erreurs
 
-```Page liste des assignments correspondant au type d'utilisateur connecté:
-    avec Material Card pour chaque assignment 
+### Page liste des assignments correspondant au type d'utilisateur connecté:
+- Material Card pour chaque assignment 
 
-```Page detail d'un assignment :
-    avec Matérial Dialog 
+### Page detail d'un assignment :
+- Matérial Dialog 
 
-```Page création d'assignment :
-    avec un Formulaire de type Stepper 
-    avec  MatSnackBar pour affichage d'erreur 
+### Page création d'assignment :
+- un Formulaire de type Stepper 
+- MatSnackBar pour affichage d'erreur 
 
-```Page d'édition d'assignment :
-    avec un Formulaire de type Stepper 
-    avec  MatSnackBar pour affichage d'erreur 
+### Page d'édition d'assignment :
+- un Formulaire de type Stepper 
+- MatSnackBar pour affichage d'erreur 
 
-```Page notation d'assignment :
-    avec drag and drop entre la liste des Assignments non rendus et rendus ( Matérial drag and drop )
+### Page notation d'assignment :
+- drag and drop entre la liste des Assignments non rendus et rendus ( Matérial drag and drop )
 
-```Page Profil :
-    avec upload photo pour changement photo de profil 
-    avec  MatSnackBar pour affichage d'erreur 
+### Page Profil :
+- upload photo pour changement photo de profil 
+- MatSnackBar pour affichage d'erreur 
 
-```Ajout loading à chaque chargment de donnée : 
+### Ajout loading à chaque chargment de donnée : 
 
 
-
-Element utilisé : 
-tutorial loading spinner : https://danielk.tech/home/angular-how-to-add-a-loading-spinner
-tutorial d'angular matérial : https://material.angular.io/
-template Sneat : https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/ 
+## Element utilisé : 
+- tutorial loading spinner : https://danielk.tech/home/angular-how-to-add-a-loading-spinner
+- tutorial d'angular matérial : https://material.angular.io/
+- template Sneat : https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/ 
