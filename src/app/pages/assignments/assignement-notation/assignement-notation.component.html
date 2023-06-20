@@ -24,9 +24,9 @@
   >
   </mat-paginator>
 
-<div cdkDropListGroup>
+<div cdkDropListGroup class="mt-3">
   <div class="example-container">
-    <h2>To do</h2>
+    <h2>Non rendu</h2>
 
     <div
       cdkDropList
@@ -34,7 +34,7 @@
       class="example-list"
       (cdkDropListDropped)="drop($event)">
 
-      <div class="mb-3 assignment-box" *ngFor="let item of assignments" cdkDrag [cdkDragData]="item">
+      <div class="assignment-box " *ngFor="let item of assignments" cdkDrag [cdkDragData]="item">
         <mat-card >
           <mat-card-header>
                 <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
@@ -57,7 +57,7 @@
   </div>
 
   <div class="example-container">
-    <h2>Done</h2>
+    <h2>Rendu</h2>
 
     <div
       cdkDropList
@@ -65,7 +65,7 @@
       [cdkDropListData]="assignmentsDone"
       class="example-list"
       (cdkDropListDropped)="drop($event)">
-      <div class="mb-3 assignment-box" *ngFor="let item of assignmentsDone" cdkDrag  >
+      <div class="assignment-box" *ngFor="let item of assignmentsDone" cdkDrag  >
         <mat-card >
           <mat-card-header>
                 <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
