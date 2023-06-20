@@ -5,5 +5,5 @@ export const options = {
   };
 
 export const environment = {
-  api_url: "http://localhost:8010/api"
+  api_url: "https://assignemts-api-andy-maria-37-42.onrender.com/api"
 }
