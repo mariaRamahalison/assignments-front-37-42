@@ -25,6 +25,7 @@ export class ProfilComponent implements OnInit{
   userConnected: any;
   matiere: any;
   uri_api = environment.api_url;
+  file: any;
   constructor( private fileService: FileService, 
     private fb: FormBuilder,
     private authService: AuthService,
@@ -114,6 +115,7 @@ export class ProfilComponent implements OnInit{
 
   async reset(){    
     this.pdp = null;
+    this.file = null;
     await this.getPhoto();
   }
 
