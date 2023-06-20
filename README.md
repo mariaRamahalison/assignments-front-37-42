@@ -1,27 +1,77 @@
-# AssignmentApp
+# ASSIGNMENTS-FRONT
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.1.
+Ce projet est la partie front utilisé pour la gestion des assignments du TP ASSIGNMENTS 
 
-## Development server
+# Getting started 
+Les développeurs: 
+- Randriahamihaja Ambinintsoa Maria N°42
+- Ramaroson Andy Faniry N°37  
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Identifiant par défaut (identifant / mots de passe):
+  - Admin : admin@gmail.com/admin
+  - Etudiant :mlidden0@scribd.com/123
+  - Professeur : hfolini9@123-reg.co.uk/123
 
-## Code scaffolding
+### Setup
+Pour construire et faire fonctionner l'application, vous avez besoin de
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* NodeJS 
+* npm
 
-## Build
+## Installation du projet:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Step 1
+```shell
+npm install -g @angular/cli                                      # Installez angular CLI (en super utilisateur)
 
-## Running unit tests
+### Step 2
+```shell
+git https://github.com/mariaRamahalison/assignments-front-37-42.git
+cd ASSIGNMENTS-API-37-42
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Step 3
+```shell
+ng serve
 
-## Running end-to-end tests
+### Step 4
+Allez dans votre navigateur et accéder la page au port marqué dans le terminal 
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Documentation 
+Ce projet est composé :
+```Page de login 
+    avec SnackBar Material pour l'affichage des messages d'erreurs 
 
-## Further help
+```Page d'inscription :
+    avec upload photo de profil
+    avec SnackBar Material pour l'affichage des messages d'erreurs
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```Page liste des assignments correspondant au type d'utilisateur connecté:
+    avec Material Card pour chaque assignment 
+
+```Page detail d'un assignment :
+    avec Matérial Dialog 
+
+```Page création d'assignment :
+    avec un Formulaire de type Stepper 
+    avec  MatSnackBar pour affichage d'erreur 
+
+```Page d'édition d'assignment :
+    avec un Formulaire de type Stepper 
+    avec  MatSnackBar pour affichage d'erreur 
+
+```Page notation d'assignment :
+    avec drag and drop entre la liste des Assignments non rendus et rendus ( Matérial drag and drop )
+
+```Page Profil :
+    avec upload photo pour changement photo de profil 
+    avec  MatSnackBar pour affichage d'erreur 
+
+```Ajout loading à chaque chargment de donnée : 
+
+
+
+Element utilisé : 
+tutorial loading spinner : https://danielk.tech/home/angular-how-to-add-a-loading-spinner
+tutorial d'angular matérial : https://material.angular.io/
+template Sneat : https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/ 
