@@ -12,12 +12,12 @@ const routes: Routes = [
   {
     path: '',
     component: PagesComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
         redirectTo: 'home',
-        // canActivate: [AuthGuard],
       },
       {
         path: 'home',
@@ -26,12 +26,10 @@ const routes: Routes = [
       {
         path: 'add',
         component: AddAssignmentComponent,
-        canActivate: [authGuard]
       },
       {
         path: 'assignments/edit/:id',
         component: EditAssignmentComponent,
-        canActivate: [authGuard]
       },
       {
         path: 'profil',

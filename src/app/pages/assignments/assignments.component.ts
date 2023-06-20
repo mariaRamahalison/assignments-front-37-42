@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AssignmentDetailComponent } from 'src/app/pages/assignments/assignment-detail/assignment-detail.component';
 import { MatDialog } from '@angular/material/dialog';
+import { getPhotoUtil, getPhotoUtilBis } from 'src/app/shared/utils/diplayImage';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-assignments',
@@ -32,9 +34,9 @@ export class AssignmentsComponent implements OnInit {
               public dialog: MatDialog) {    
   }
   
-  ngOnInit(): void {
+ async  ngOnInit() {
     this.user= JSON.parse(localStorage.getItem('user')!);
-    this.getAssignments();
+    await this.getAssignments();
   }
 
 
@@ -56,8 +58,8 @@ export class AssignmentsComponent implements OnInit {
   delete(assignment : Assignment ){
     this.assignmentsService.deleteAssignment(assignment._id)
       .subscribe({
-        next: (message: any) => {
-          this.getAssignments();
+        next: async (message: any) => {
+          await this.getAssignments();
           this._snackBar.open("Assignement supprimé avec succès", "OK", {
             duration: 3000,
             panelClass: ['green-snackbar'],
@@ -72,12 +74,11 @@ export class AssignmentsComponent implements OnInit {
     });
   }
 
-  getAssignments() {
+  async getAssignments() {
     console.log("On va chercher les assignments dans le service");
-    let auteur = (this.user.type === "etudiant") ? this.user._id : null ;
-    let professeur = (this.user.type === "prof") ? this.user._id : null ;
-    this.assignmentsService.getAssignments(this.page, this.limit,professeur,auteur)
-    .subscribe(data => {
+    let auteur = this.isEtudiant() ? this.user._id : null ;
+    let professeur = this.isProf() ? this.user._id : null ;
+    await lastValueFrom(this.assignmentsService.getAssignments(this.page, this.limit,professeur,auteur)).then((data)=>{
       this.assignments = data.docs;
       this.page = data.page;
       this.limit = data.limit;
@@ -87,39 +88,56 @@ export class AssignmentsComponent implements OnInit {
       this.prevPage = data.prevPage;
       this.hasNextPage = data.hasNextPage;
       this.nextPage = data.nextPage;
-    });
+    });    
   }
+
+  
 
   isAdmin(){
     return this.user?.type === "admin";
   }
 
-  premierePage() {
+  isProf(){
+    return this.user?.type === "prof";
+  }
+
+  isEtudiant(){
+    return this.user?.type === "etudiant";
+  }
+
+  async premierePage() {
     this.page = 1;
-    this.getAssignments();
+    await this.getAssignments();
   }
 
-  pageSuivante() {
+  async pageSuivante() {
     this.page = this.nextPage;
-    this.getAssignments();
+    await this.getAssignments();
   }
 
-  pagePrecedente() {
+  async pagePrecedente() {
     this.page = this.prevPage;
-    this.getAssignments();
+    await this.getAssignments();
   }
 
-  dernierePage() {
+  async dernierePage() {
     this.page = this.totalPages;
-    this.getAssignments();
+    await this.getAssignments();
   }
 
   // Pour mat-paginator
-  handlePage(event: any) {
-    console.log(event);
-   
+  async handlePage(event: any) {
     this.page = event.pageIndex;
     this.limit = event.pageSize;
-    this.getAssignments();
+    await this.getAssignments();
+  }
+
+  getPhotoIllu(items:any){
+       return getPhotoUtilBis(items.photo);
+  }
+
+  getItem(item:any){
+    console.log(item);
+    
   }
 }
