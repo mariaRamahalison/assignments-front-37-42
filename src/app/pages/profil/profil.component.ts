@@ -124,8 +124,10 @@ export class ProfilComponent implements OnInit{
       disableClose:true, data: {update:true, data: this.matiere, prof: this.userConnected._id}
      });
      await dialogRef.afterClosed().subscribe(async (result) => {
-      this.matiere = result;
-      await this.getMatierePhoto();
+      if(result){
+        this.matiere = result;
+        await this.getMatierePhoto();
+      }
     });
   }
 

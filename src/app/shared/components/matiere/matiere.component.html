@@ -25,7 +25,7 @@
             <div class="col-sm-13">
             <button type="submit" class="btn btn-primary">Enregistrer</button>
             &nbsp;&nbsp;
-            <button (click)="closeDialog()" class="btn btn-danger">Annuler</button>
+            <button *ngIf="data.update" (click)="closeDialog()" class="btn btn-danger">Annuler</button>
             </div>
         </div>
         </form>
