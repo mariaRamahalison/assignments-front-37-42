@@ -34,7 +34,7 @@
       class="example-list"
       (cdkDropListDropped)="drop($event)">
 
-      <div class="mb-3 assignment-box" *ngFor="let item of assignments" cdkDrag [cdkDragData]="item" style="cursor: pointer;">
+      <div class="assignment-box" *ngFor="let item of assignments" cdkDrag [cdkDragData]="item" style="cursor: pointer;">
         <mat-card (click) = "detail(item)">
           <mat-card-header>
                 <img mat-card-avatar [src]="getPhotoIllu(item.auteur)" >
