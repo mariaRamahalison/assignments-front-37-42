@@ -23,6 +23,7 @@ Pour construire et faire fonctionner l'application, vous avez besoin de
 ### Step 1
 ```shell
 npm install -g @angular/cli                                      # Installez angular CLI (en super utilisateur)
+```
 
 ### Step 2
 ```shell
@@ -33,6 +34,7 @@ cd ASSIGNMENTS-API-37-42
 ### Step 3
 ```shell
 ng serve
+```
 
 ### Step 4
 Allez dans votre navigateur et accéder la page au port marqué dans le terminal 
