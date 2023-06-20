@@ -5,7 +5,7 @@ export const getPhotoUtil = ((name)=>{
         if(name !== ""){
             resolve(`${uri_api}/photo/${name}`);
           }else{
-            resolve('../assets/img/avatars/not_found.jpg');
+            return(`${uri_api}/photo/1687298881022-496619892.jpg`);
           }
     });    
 });
@@ -14,6 +14,7 @@ export const getPhotoUtilBis = ((name)=>{
   if(name !== ""){
     return(`${uri_api}/photo/${name}`);
   }else{
-    return('../assets/img/avatars/not_found.jpg');
+    return(`${uri_api}/photo/1687298881022-496619892.jpg`);
   }
 })
+
