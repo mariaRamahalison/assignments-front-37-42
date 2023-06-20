@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AssignmentsService } from 'src/app/shared/services/assignments.service';
 import { Assignment } from 'src/app/shared/model/assignment.model';
 import { Matiere } from 'src/app/shared/model/matiere.model';

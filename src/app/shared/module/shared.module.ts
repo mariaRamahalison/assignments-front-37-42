@@ -25,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SpinnerComponent } from '../components/spinner/spinner.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { SpinnerComponent } from '../components/spinner/spinner.component';
     MatDialogModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    SpinnerComponent
+    SpinnerComponent,
+    DragDropModule
   ],
   imports: [
     FormsModule, 
@@ -81,7 +83,8 @@ import { SpinnerComponent } from '../components/spinner/spinner.component';
     MatRadioModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
-  ],
+    MatProgressSpinnerModule,
+    DragDropModule
+  ]
 })
 export class SharedModule {}

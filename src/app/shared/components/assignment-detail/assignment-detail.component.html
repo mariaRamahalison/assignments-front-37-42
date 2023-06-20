@@ -1,0 +1,95 @@
+
+
+
+<mat-card>
+  <mat-card-content>
+        <div class="card-header d-flex align-items-center justify-content-between pb-0">
+          <div class="card-title mb-0">
+            <h5 class="m-0 me-2">{{assignmentTransmis?.nom}}</h5>
+            <small class="text-muted">02/02/2023</small>  <br>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex flex-column align-items-center gap-1">
+              <h2 class="mb-2" *ngIf="assignmentTransmis?.note ; else noNote"><small class="text-muted"  >Note : </small> {{assignmentTransmis?.note}} /20</h2>
+              <ng-template #noNote>   <h2 class="mb-2"><small class="text-muted" >Pas de note</small></h2></ng-template>
+              <span>{{assignmentTransmis?.matiere?.nom}}</span>
+            </div>
+            <div >
+              <img  class="rounded-circle" mat-card-md-image id="orderStatisticsChart" src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+            </div>
+          </div>
+          <ul class="p-0 m-0">
+            <li class="d-flex mb-2 pb-1">
+              <div class="avatar flex-shrink-0 me-3">
+                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">Elève</h6>
+                  <small class="text-muted">{{assignmentTransmis?.auteur?.nom}} {{assignmentTransmis?.auteur?.prenom}}</small>
+                </div>
+              </div>
+            </li>
+            <li class="d-flex mb-2 pb-1">
+              <div class="avatar flex-shrink-0 me-3">
+                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">Professeur</h6>
+                  <small class="text-muted">{{assignmentTransmis?.matiere?.idProf?.nom}} {{assignmentTransmis?.matiere?.idProf?.prenom}}</small>
+                </div>
+              </div>
+            </li>
+            <li class="d-flex pb-1" >
+              <div class="avatar flex-shrink-0 me-3 ">
+                <span class="avatar-initial rounded bg-label-primary"
+                  ><i class="bx bx-pencil"></i
+                ></span>
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">Remarque</h6>
+                  <p *ngIf="assignmentTransmis?.remarque ; else noRemarque">{{assignmentTransmis?.remarque}}</p>
+                  <ng-template #noRemarque><p>Pas de remarque</p></ng-template>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <form *ngIf="notation==true" [formGroup]="formGroup">
+            <div>
+              <label for="defaultFormControlInput" class="form-label">Note</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="note"
+              />
+              <mat-error *ngIf="formGroup.get('note')?.hasError('required') && formGroup.get('note')?.touched">
+                Note requis
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('note')?.hasError('min') && formGroup.get('note')?.touched">
+                La note dois etre positive
+              </mat-error>
+              <mat-error *ngIf="formGroup.get('note')?.hasError('max') && formGroup.get('note')?.touched">
+                La note maximum est 20
+              </mat-error>
+            </div>
+            <div class="mb-2">
+              <div>
+                <label for="exampleFormControlTextarea1" class="form-label">Remarque</label>
+                <textarea class="form-control" formControlName="remarque" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+            </div>
+            <div class="row float-end">
+                <div class="col-sm-13">
+                <button type="submit" class="btn btn-primary" (click)="noter(assignmentTransmis)">Enregistrer</button>
+                &nbsp;&nbsp;
+                </div>
+            </div>
+          </form>
+        </div>
+  </mat-card-content>
+</mat-card>
+

@@ -16,7 +16,7 @@ import { MatiereService } from 'src/app/shared/services/matiere.service';
   providers : [
     {
       provide : STEPPER_GLOBAL_OPTIONS,
-       useValue : { showError : true },
+      useValue : { showError : true },
     },
   ]
 })
@@ -44,11 +44,6 @@ export class AddAssignmentComponent {
     if(!this.isAdmin()) this.auteurFormGroup.controls.auteur.setValue(this.user._id);
     this.getMatiere();
     this.getAuteurs();
-    this.initForm();
-  }
-
-  initForm(){
-    
   }
 
   isAdmin(){

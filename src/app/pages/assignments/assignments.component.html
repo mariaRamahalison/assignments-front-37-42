@@ -1,34 +1,17 @@
 
-    <nav class="ajouterBtn">
-        <a routerLink="/add">
-          <button type="button" class="btn btn-primary"> Ajouter Assignment</button>
-        </a>
-    </nav>
-
-    <mat-divider></mat-divider>
-    <p>
-        Nb assignments total {{totalDocs}}, par page {{limit}}, nbPages {{totalPages}}
+<div class="col-md-6 mb-2">
+  <div class="mt-3">
+    <p> Nb assignments total {{totalDocs}}, par page {{limit}}, nbPages {{totalPages}}</p>
+    <p> Régler nb par page : <input type="range"  min=1 max=100 value=10 [(ngModel)]="limit" (change)="getAssignments()" /> {{limit}}
     </p>
-    <p>
-        Régler nb par page : 
-           <input type="range" 
-                  min=1 max=100 value=10 
-                  [(ngModel)]="limit"
-                  (change)="getAssignments()"
-           /> {{limit}}
-    </p>
-    <p>
-    <button (click)="premierePage()" [disabled]="!hasPrevPage">
-        Première page
-    </button>
-    <button (click)="pagePrecedente()" [disabled]="!hasPrevPage">
-        Page Précédente
-    </button>
-    <button (click)="pageSuivante()" [disabled]="!hasNextPage">Page Suivante</button>
-    <button (click)="dernierePage()" [disabled]="!hasNextPage">
-        Derniere page
-    </button>
-</p>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-secondary" (click)="premierePage()" [disabled]="!hasPrevPage">Première page</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="pagePrecedente()" [disabled]="!hasPrevPage">Page Précédente</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="pageSuivante()" [disabled]="!hasNextPage">Page Suivante</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="dernierePage()" [disabled]="!hasNextPage">Derniere page</button>
+      </div>
+  </div>
+</div>
 <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons
                  aria-label="Selection de la page des assigments"
@@ -46,25 +29,19 @@
           <mat-card class="card h-100">
               <mat-card-header>
                   <mat-card-title-group  class="mb-3">
-                    <mat-card-title class="text-one-line "><h5 class="card-title">{{item?.nom}}</h5> </mat-card-title>
+                    <mat-card-title class="text-one-line "><h5 class="card-title">{{item.nom}}</h5> </mat-card-title>
                     <mat-card-subtitle  class="text-one-line text-muted"> 
-                    
-                      02/02/2023 
-                      <!-- {{assigment.dateDeRendu| date: 'dd/MM/yy'}} -->
+                      {{item.dateRendu| date: 'dd/MM/yy'}}
                     </mat-card-subtitle>
                     <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
                   </mat-card-title-group>
                 </mat-card-header>
               <mat-card-content class="mb-3">
-                <p class="card-text">{{item?.auteur?.nom}} {{item?.auteur?.prenom}}</p>
+                <p class="card-text">{{item.auteur.nom}} {{item.auteur.prenom}}</p>
               </mat-card-content>
               <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
               <mat-card-actions>
-                <button mat-button
-                data-bs-toggle="modal"
-                data-bs-target="#modalScrollable"
-                class="card-link" (click)="detail(item)"
-                >Details</button>
+                <button mat-button class="card-link" (click)="detail(item)">Details</button>
                 <button mat-button *ngIf="isAdmin()" (click)="edit(item)">Edit</button>
                 <button mat-button *ngIf="isAdmin()" color="warn" (click)="delete(item)">Delete</button>
               </mat-card-actions>
@@ -74,7 +51,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
+<!-- <div class="modal fade" id="modalScrollable" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable " role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -90,4 +67,4 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->

@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
-import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from '../shared/services/auth/auth.guard';
 import { PagesComponent } from './pages.component';
 import { ProfilComponent } from './profil/profil.component';
+import { AssignementNotationComponent } from './assignments/assignement-notation/assignement-notation.component';
 
 const routes: Routes = [
   {
@@ -29,10 +29,6 @@ const routes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'assignments/:id',
-        component: AssignmentDetailComponent
-      },
-      {
         path: 'assignments/edit/:id',
         component: EditAssignmentComponent,
         canActivate: [authGuard]
@@ -41,6 +37,10 @@ const routes: Routes = [
         path: 'profil',
         component: ProfilComponent
       },
+      {
+        path: 'assignments/notation',
+        component: AssignementNotationComponent
+      }
     ]
   }
 ]
