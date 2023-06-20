@@ -1,51 +1,62 @@
-   <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme sticky-footer">
-    <div class="app-brand demo ">
-      <a href="index.html" class="app-brand-link">
-        <span class="app-brand-logo demo">
-          <img
-            width="25"
-            viewBox="0 0 25 42"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            src="assets/img/favicon/icon.png"
-          >
-        </span>
-        <span class="app-brand-text demo text-body fw-bolder">ssignement</span>
-      </a>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme sticky-footer menu-fixed">
+<div class="app-brand demo ">
+  <a href="index.html" class="app-brand-link" >
+    <span class="app-brand-logo demo">
+      <img
+        width="25"
+        viewBox="0 0 25 42"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        src="assets/img/favicon/icon.png"
+      >
+    </span>
+    <span class="app-brand-text demo text-body fw-bolder">ssignement</span>
+  </a>
 
-      <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-        <i class="bx bx-chevron-left bx-sm align-middle"></i>
-      </a>
-    </div>
+  <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+    <i class="bx bx-chevron-left bx-sm align-middle"></i>
+  </a>
+</div>
 
-    <div class="menu-inner-shadow "></div>
+<div class="menu-inner-shadow "></div>
 
-    <ul class="menu-inner py-1 ">
-      
-      <!-- Components -->
-      
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Assignment</span></li>
-      
-      <li class="menu-item">
-        <a href="/home" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-collection"></i>
-          <div data-i18n="Basic">Assignment</div>
-        </a>
-      </li>
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Profil</span></li>
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-collection"></i>
-          <div data-i18n="Basic">Professeur / Matière</div>
-        </a>
-      </li>
-      <li class="menu-item">
-        <a href="cards-basic.html" class="menu-link">
-          <i class="menu-icon tf-icons bx bx-collection"></i>
-          <div data-i18n="Basic">Etudiant</div>
-        </a>
-      </li>
-    </ul>
-  </aside>
-  <!-- / Menu -->
+<ul class="menu-inner py-1" >
+  
+  <!-- Components -->
+  
+  <li class="menu-header small text-uppercase"><span class="menu-header-text">Assignments</span></li>
+
+  <li class="menu-item">
+    <a href="/home" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-list-ul"></i>
+      <div data-i18n="Basic" > Liste des Assignments</div>
+    </a>
+  </li>
+  <li class="menu-item" *ngIf="isType('admin') || isType('etudiant')">
+    <a href="/add" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-add-to-queue"></i>
+      <div data-i18n="Basic" >Créer un assignment</div>
+    </a>
+  </li>
+  <li class="menu-item" *ngIf="isType('prof')">
+    <a href="/assignments/notation" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-edit"></i>
+      <div data-i18n="Basic" >Noter les assignments</div>
+    </a>
+  </li>
+  <li class="menu-header small text-uppercase"><span class="menu-header-text">Profil</span></li>
+  <li class="menu-item">
+    <a href="cards-basic.html" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-book-reader"></i>
+      <div data-i18n="Basic">Liste des Professeurs / Matières</div>
+    </a>
+  </li>
+  <li class="menu-item">
+    <a href="cards-basic.html" class="menu-link">
+      <i class="menu-icon tf-icons bx bx-user"></i>
+      <div data-i18n="Basic">Liste des Etudiants</div>
+    </a>
+  </li>
+</ul>
+</aside>

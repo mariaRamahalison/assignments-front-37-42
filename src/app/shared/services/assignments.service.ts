@@ -17,23 +17,23 @@ export class AssignmentsService {
     let params = "?page=" + page + "&limit=" + limit;
     if(professeur) params += "&professeur=" + professeur;
     if(auteur) params += "&auteur=" + auteur;
-    return this.http.get<Assignment[]>(this.uri_api + params , options);
+    return this.http.get<Assignment[]>(this.uri_api + params , this.header);
   }
 
   getAssignment(id:string):Observable<Assignment|undefined> {
-    return this.http.get<Assignment>(`${this.uri_api}/${id}` , options);
+    return this.http.get<Assignment>(`${this.uri_api}/${id}` , this.header);
   }
  
   addAssignment(assignment:Assignment):Observable<any> {
-    return this.http.post<Assignment>(this.uri_api, assignment ,options);
+    return this.http.post<Assignment>(this.uri_api, assignment ,this.header);
   }
 
   updateAssignment(assignment: Assignment) :Observable<any> {
-    return this.http.put<Assignment>(this.uri_api, assignment , options)
+    return this.http.put<Assignment>(this.uri_api, assignment , this.header)
   }
 
   deleteAssignment(id : string):Observable<any> {
-    return this.http.delete(`${this.uri_api}/${id}` , options)
+    return this.http.delete(`${this.uri_api}/${id}` , this.header)
   }
 
 }
