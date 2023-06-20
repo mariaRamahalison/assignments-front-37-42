@@ -6,7 +6,7 @@
         <div class="card-header d-flex align-items-center justify-content-between pb-0">
           <div class="card-title mb-0">
             <h5 class="m-0 me-2">{{assignmentTransmis?.nom}}</h5>
-            <small class="text-muted">02/02/2023</small>  <br>
+            <small class="text-muted">{{assignmentTransmis?.dateRendu| date: 'dd/MM/yy'}}</small>  <br>
           </div>
         </div>
         <div class="card-body">
@@ -17,13 +17,13 @@
               <span>{{assignmentTransmis?.matiere?.nom}}</span>
             </div>
             <div >
-              <img  class="rounded-circle" mat-card-md-image id="orderStatisticsChart" src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+              <img  class="rounded-circle" mat-card-md-image id="orderStatisticsChart" [src]="getPhotoIllu(assignmentTransmis?.matiere)" >
             </div>
           </div>
           <ul class="p-0 m-0">
             <li class="d-flex mb-2 pb-1">
               <div class="avatar flex-shrink-0 me-3">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+                <img [src]="getPhotoIllu(assignmentTransmis?.auteur)" >
               </div>
               <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                 <div class="me-2">
@@ -34,7 +34,7 @@
             </li>
             <li class="d-flex mb-2 pb-1">
               <div class="avatar flex-shrink-0 me-3">
-                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+                <img [src]="getPhotoIllu(assignmentTransmis?.matiere?.idProf)" >
               </div>
               <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                 <div class="me-2">

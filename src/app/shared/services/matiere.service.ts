@@ -29,7 +29,7 @@ export class MatiereService {
       map((response: any) => {
         return response;
       })
-    );;
+    );
   }
 
 }

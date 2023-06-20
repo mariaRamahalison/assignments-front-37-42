@@ -10,6 +10,7 @@ import { User } from 'src/app/shared/model/user.dto';
 import { Assignment } from 'src/app/shared/model/assignment.model';
 import { MatDialog, } from '@angular/material/dialog';
 import { AssignmentDetailComponent } from 'src/app/pages/assignments/assignment-detail/assignment-detail.component';
+import { getPhotoUtilBis } from 'src/app/shared/utils/diplayImage';
 
 @Component({
   selector: 'app-assignement-notation',
@@ -113,5 +114,15 @@ export class AssignementNotationComponent {
     this.limit = event.pageSize;
     this.getAssignments();
   }
-  
+  getPhotoIllu(items:any){
+    return getPhotoUtilBis(items.photo);
+  }
+  detail(item : Assignment){
+    this.dialog.open(AssignmentDetailComponent, {
+      data : {
+        assignmentTransmis: item,
+        notation: false
+      }
+    });
+  }
 }

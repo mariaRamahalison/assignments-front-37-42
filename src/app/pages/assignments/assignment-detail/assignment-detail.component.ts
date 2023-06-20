@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { AssignmentsService } from '../../../shared/services/assignments.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { getPhotoUtilBis } from 'src/app/shared/utils/diplayImage';
 
 @Component({
   selector: 'app-assignment-detail',
@@ -27,7 +28,6 @@ export class AssignmentDetailComponent implements OnInit {
 
     
   ngOnInit(): void {
-    console.log(this.data);
     this.assignmentTransmis = this.data.assignmentTransmis;
     this.notation= this.data.notation;
     this.formGroup = this.fb.group({
@@ -70,6 +70,9 @@ export class AssignmentDetailComponent implements OnInit {
       }});
   }
 
+  getPhotoIllu(items:any){
+    return getPhotoUtilBis(items.photo);
+}
 
   
 }

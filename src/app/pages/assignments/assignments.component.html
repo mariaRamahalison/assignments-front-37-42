@@ -34,13 +34,14 @@
                     <mat-card-subtitle  class="text-one-line text-muted"> 
                       {{item.dateRendu| date: 'dd/MM/yy'}}
                     </mat-card-subtitle>
-                    <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+                    <img mat-card-avatar [src]="getPhotoIllu(item.matiere)" alt="Photo">
                   </mat-card-title-group>
                 </mat-card-header>
               <mat-card-content class="mb-3">
                 <p class="card-text">{{item.auteur.nom}} {{item.auteur.prenom}}</p>
               </mat-card-content>
-              <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+              <img mat-card-image *ngIf="isEtudiant()" [src]="getPhotoIllu(item.matiere.idProf)" alt="Photo">
+              <img mat-card-image *ngIf="isAdmin() || isProf()" [src]="getPhotoIllu(item.auteur)" alt="Photo">
               <mat-card-actions>
                 <button mat-button class="card-link" (click)="detail(item)">Details</button>
                 <button mat-button *ngIf="isAdmin()" (click)="edit(item)">Edit</button>

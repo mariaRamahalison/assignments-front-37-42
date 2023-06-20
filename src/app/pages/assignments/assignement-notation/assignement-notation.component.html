@@ -34,10 +34,10 @@
       class="example-list"
       (cdkDropListDropped)="drop($event)">
 
-      <div class="mb-3 assignment-box" *ngFor="let item of assignments" cdkDrag [cdkDragData]="item">
-        <mat-card >
+      <div class="mb-3 assignment-box" *ngFor="let item of assignments" cdkDrag [cdkDragData]="item" style="cursor: pointer;">
+        <mat-card (click) = "detail(item)">
           <mat-card-header>
-                <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+                <img mat-card-avatar [src]="getPhotoIllu(item.auteur)" >
                 <mat-card-title class="card-title">{{item.nom}}</mat-card-title>
               <mat-card-subtitle class="mb-2 card-text text-primary"><small >{{item.dateRendu | date: 'dd/MM/yy'}}</small> </mat-card-subtitle>
           </mat-card-header>
@@ -68,7 +68,7 @@
       <div class="mb-3 assignment-box" *ngFor="let item of assignmentsDone" cdkDrag  >
         <mat-card >
           <mat-card-header>
-                <img mat-card-avatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
+               
                 <mat-card-title class="card-title">{{item.nom}}</mat-card-title>
               <mat-card-subtitle class="mb-2 card-text text-primary"><small >{{item.dateRendu | date: 'dd/MM/yy'}}</small> </mat-card-subtitle>
           </mat-card-header>
