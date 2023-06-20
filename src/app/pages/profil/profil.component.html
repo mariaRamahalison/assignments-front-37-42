@@ -82,7 +82,7 @@
     </div>
     <!-- /Account -->
     <hr class="my-0" />
-    <div class="card-body">
+    <div class="card-body" *ngIf="isProf(userConnected)">
       <div class="d-flex align-items-start align-items-sm-center gap-4">
         <img
           [src]="matiereImage"
@@ -92,10 +92,10 @@
           width="100"
           id="uploadedAvatar"
         />
-        <div class="row">
+        <div class="row" >
           <label for="organization" class="form-label">Matière</label>
           <div class="mb-4 col-md-6" style="margin-top: 15px;">
-            <div  *ngIf="isProf(userConnected)">
+            <div  >
               <input
                 type="text"
                 class="form-control"
