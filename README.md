@@ -11,6 +11,11 @@ Les développeurs:
   - Admin : admin@gmail.com/admin
   - Etudiant :mlidden0@scribd.com/123
   - Professeur : hfolini9@123-reg.co.uk/123
+  
+- lien vidéo démonstration :
+
+- Hébergement sur render.com  : https://assignemts-front-andy-maria-37-42.onrender.com
+Back: https://assignemts-api-andy-maria-37-42.onrender.com
 
 ### Setup
 Pour construire et faire fonctionner l'application, vous avez besoin de
