@@ -27,7 +27,7 @@ npm install -g @angular/cli                                      # Installez ang
 
 ### Step 2
 ```shell
-git https://github.com/mariaRamahalison/assignments-front-37-42.git
+git clone https://github.com/mariaRamahalison/assignments-front-37-42.git
 cd ASSIGNMENTS-API-37-42
 ```
 
